@@ -1,10 +1,12 @@
+from django.contrib.auth.models import User
 from django.db import models
+
 from gift_assist import settings
 
 
 class Profile(models.Model):
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
+        User,
         on_delete=models.CASCADE,
     )
     profile_image = models.URLField()
