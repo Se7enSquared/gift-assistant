@@ -1,22 +1,6 @@
 from django.db import models
 from gift_assist import settings
 
-RELATIONSHIP = (
-    "Spouse",
-    "Parent" "Sibling",
-    "Friend",
-    "Grandparent",
-    "Cousin",
-    "Coworker",
-    "Add Relationship",
-)
-
-GENDER = (
-    "Select Gender",
-    "Female",
-    "Male",
-    "Non-Binary",
-)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(
@@ -27,6 +11,25 @@ class UserProfile(models.Model):
 
 
 class Recipient(models.Model):
+
+    RELATIONSHIP = (
+    "Select Relationship"
+    "Spouse",
+    "Parent" "Sibling",
+    "Friend",
+    "Grandparent",
+    "Cousin",
+    "Coworker",
+    "Add Relationship",
+    )
+
+    GENDER = (
+        "Select Gender",
+        "Female",
+        "Male",
+        "Non-Binary",
+    )
+
     name = models.CharField(max_length=50)
     birth_date = models.DateField()
     email = models.EmailField()
