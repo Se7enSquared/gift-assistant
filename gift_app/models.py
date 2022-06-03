@@ -23,13 +23,13 @@ class UserProfile(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    profile_image = models.ImageField
+    profile_image = models.ImageField()
 
 
 class Recipient(models.Model):
     name = models.CharField(max_length=50)
-    birth_date = models.Date
-    email = models.EmailField
+    birth_date = models.DateField()
+    email = models.EmailField()
     relationship = models.CharField(
         max_length=16, choices=RELATIONSHIP, default="Spouse"
     )
