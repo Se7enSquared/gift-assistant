@@ -2,12 +2,12 @@ from django.db import models
 from gift_assist import settings
 
 
-class UserProfile(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    profile_image = models.ImageField()
+    profile_image = models.URLField()
 
 
 class Recipient(models.Model):
