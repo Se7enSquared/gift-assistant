@@ -13,14 +13,13 @@ class UserProfile(models.Model):
 class Recipient(models.Model):
 
     RELATIONSHIP = (
-    "Select Relationship"
-    "Spouse",
-    "Parent" "Sibling",
-    "Friend",
-    "Grandparent",
-    "Cousin",
-    "Coworker",
-    "Add Relationship",
+        "Select Relationship" "Spouse",
+        "Parent" "Sibling",
+        "Friend",
+        "Grandparent",
+        "Cousin",
+        "Coworker",
+        "Add Relationship",
     )
 
     GENDER = (
@@ -34,11 +33,11 @@ class Recipient(models.Model):
     birth_date = models.DateField()
     email = models.EmailField()
     relationship = models.CharField(
-        max_length=16, choices=RELATIONSHIP, default="Spouse"
+        max_length=16, choices=RELATIONSHIP, default=RELATIONSHIP[0]
     )
-    gender = models.CharField(max_length=10, choices=GENDER, default="Select Gender")
+    gender = models.CharField(max_length=10, choices=GENDER, default=GENDER[0])
     notes = models.TextField(max_length=256)
     user_id = models.ForeignKey(
-        "UserProfile",
+        "User",
         on_delete=models.SET_NULL,
     )
