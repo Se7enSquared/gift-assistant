@@ -3,6 +3,8 @@ from django.db import models
 
 from gift_assist import settings
 
+SELECT = "select"
+
 
 class Profile(models.Model):
     user = models.OneToOneField(
