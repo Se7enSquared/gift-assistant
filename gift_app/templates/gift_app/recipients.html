@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% for recipient in recipients %}
+        <p>{{recipient.first_name}} {{recipient.last_name}}</p>
+    {% endfor %}
+
+{% endblock content %}
