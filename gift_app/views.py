@@ -5,17 +5,21 @@ from .models import Recipient
 from .forms import RecipientForm
 
 
+def home(request):
+    return render(request, 'home.html')
+
+
 def recipient_list(request):
     recipients = Recipient.objects.all()
     return render(request, 'recipients.html', {
-                'recipients': recipients})
+        'recipients': recipients})
 
 
 def recipient_detail(request):
     pass
 
 
-def recipient_new(request):
+def recipient_add(request):
     pass
 
 

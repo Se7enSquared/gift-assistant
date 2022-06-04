@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Welcome back {{ user.get_username }}</h1>
+                <p class="lead">Choose a sidebar option to get started</p>
+            </div>
+        </div>
+    {% else %}
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to Gift Assistant</h1>
+            <p class="lead">If you've ever forgotten and important occasion or if you simply don't have time to manage
+                gift-giving for your friends and family, let Gift Assistant handle it for you.</p>
+            <hr class="my-4">
+            <p>Simply enter your recipent details and let Gift Assistant send you personalized reminders complete with gift
+                ideas straight to your inbox!</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Free Sign Up</a>
+            </p>
+        </div>
+    {% endif %}
+{% endblock content %}
