@@ -33,11 +33,11 @@ class Recipient(models.Model):
         (3, "Non-Binary"),
     )
 
-    name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     birth_date = models.DateField()
     email = models.EmailField()
-    relationship = models.CharField(
-        max_length=16, choices=RELATIONSHIP, default=0)
+    relationship = models.CharField(max_length=16, choices=RELATIONSHIP, default=0)
     gender = models.CharField(max_length=10, choices=GENDER, default=0)
     notes = models.TextField()
     user_id = models.ForeignKey(
@@ -45,3 +45,9 @@ class Recipient(models.Model):
         null=True,
         on_delete=models.SET_NULL,
     )
+
+    def __str__(self):
+        return f"{self.name} : {self.relationship}"
+
+    class Meta:
+        ordering = ["last_name"]
