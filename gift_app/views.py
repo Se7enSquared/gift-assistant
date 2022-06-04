@@ -6,7 +6,9 @@ from .forms import RecipientForm
 
 
 def recipient_list(request):
-    pass
+    recipients = Recipient.objects.all()
+    return render(request, 'recipients.html', {
+                'recipients': recipients})
 
 
 def recipient_detail(request):
