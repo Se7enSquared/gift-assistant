@@ -39,7 +39,7 @@ class Recipient(models.Model):
     relationship = models.CharField(
         max_length=16, choices=RELATIONSHIP, default=0)
     gender = models.CharField(max_length=10, choices=GENDER, default=0)
-    notes = models.TextField(max_length=256)
+    notes = models.TextField()
     user_id = models.ForeignKey(
         User,
         null=True,
