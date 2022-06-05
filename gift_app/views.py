@@ -6,7 +6,13 @@ from .forms import RecipientForm
 
 
 def home(request):
-    return render(request, 'home.html')
+    if request.user.is_authenticated:
+        # TODO: Remove this comment before production
+        # To see the homepage like a logged out user,
+        # change 'welcome' to 'home'
+        return render(request, 'welcome.html')
+    else:
+        return render(request, 'home.html')
 
 
 def recipient_list(request):
