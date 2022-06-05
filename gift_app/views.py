@@ -9,10 +9,10 @@ def home(request):
     if request.user.is_authenticated:
         # TODO: Remove this comment before production
         # To see the homepage like a logged out user,
-        # change 'welcome' to 'home'
-        return render(request, 'home.html')
-    else:
-        return render(request, 'home.html')
+        # change 'welcome' to 'home' and refresh
+        # the '' route
+        return render(request, 'welcome.html')
+    return render(request, 'home.html')
 
 
 def recipient_list(request):
