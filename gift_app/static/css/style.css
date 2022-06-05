@@ -13,7 +13,6 @@ body {
     float: left;
 }
 
-
 .content {
     flex: 1 0 auto;
 }
@@ -22,10 +21,10 @@ body {
     background: rgba(229, 231, 235, 0.75);
 }
 
-#sidebar {
-    height: 100%;
-    width: 140px;
-    top: 0;
-    left: 0;
-    position: fixed;
-}
+
+.flex-wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+  }

@@ -1,15 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
-{% endblock extra_css %}
+    {% block extra_css %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% endblock extra_css %}
 {% block content %}
-<nav id="sidebar" class="space-top">
-    {% include "sidebar.html" %}
-</nav>
-<div class="container">
-    {% for recipient in recipients %}
-        <p>{{recipient.first_name}} {{recipient.last_name}}</p>
-    {% endfor %}
-</div>
+    <nav id="sidebar" class="space-top">
+        {% include "sidebar.html" %}
+    </nav>
+        <table class="table flex-wrapper" id="recipient_tbl">
+            <thead>
+                <tr>
+                    <th scrope="col">First Name</th>
+                    <th scrope="col">Last Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for recipient in recipients %}
+                <tr>
+                    <td>{{recipient.first_name}}</td>
+                    <td>{{recipient.last_name}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 {% endblock content %}
