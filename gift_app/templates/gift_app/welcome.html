@@ -1,17 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
-{% endblock extra_css %}
+{% block custom_stylesheet %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock custom_stylesheet %}
 {% block content %}
-<nav id="sidebar" class="space-top">
+<div class="row">
+<div class="col-md-4"
+<nav id="sidebar">
     {% include "sidebar.html" %}
 </nav>
-
-<div class="container">
+</div>
+<div class="col-md-8">
+    <div class="flexbox-item">
     <div class="jumbotron jumbotron-fluid" id="ga-welcome">
         <h1 class="display-4">Welcome back {{ user.get_username }}</h1>
         <p class="lead">Choose a sidebar option to get started</p>
     </div>
+    </div>
+</div>
 </div>
 {% endblock content %}
