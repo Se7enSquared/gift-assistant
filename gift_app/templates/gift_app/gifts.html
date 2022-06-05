@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block extra_css %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% endblock extra_css %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+    <nav id="sidebar" class="space-top">
+        {% include "sidebar.html" %}
+    </nav>
+    </div>
+    <div class="col-md-8">
+        <table class="table flex-wrapper" id="gift_tbl">
+            <thead>
+                <tr>
+                    <th scrope="col">Title</th>
+                    <th scrope="col">Link Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for gift in gifts %}
+                <tr>
+                    <td>{{gift.title}}</td>
+                    <td>{{gift.link}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+</div>
+{% endblock content %}
