@@ -1,24 +1,33 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/homestyle.css' %}">
+{% endblock extra_css %}
 {% block content %}
-    {% if user.is_authenticated %}
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-4">Welcome back {{ user.get_username }}</h1>
-                <p class="lead">Choose a sidebar option to get started</p>
-            </div>
-        </div>
-    {% else %}
-        <div class="jumbotron">
-            <h1 class="display-4">Welcome to Gift Assistant</h1>
-            <p class="lead">If you've ever forgotten and important occasion or if you simply don't have time to manage
-                gift-giving for your friends and family, let Gift Assistant handle it for you.</p>
-            <hr class="my-4">
-            <p>Simply enter your recipent details and let Gift Assistant send you personalized reminders complete with gift
-                ideas straight to your inbox!</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Free Sign Up</a>
-            </p>
-        </div>
-    {% endif %}
+<div class="jumbotron soft-background text-center" id="ga-logged-out">
+    <h1 class="display-4">Welcome to Gift Assistant</h1>
+    <p class="lead">If you've ever forgotten and important occasion or if you simply don't have time to manage
+        gift-giving for your friends and family, let Gift Assistant handle it for you.</p>
+    <hr class="my-4">
+    <p>Simply enter your recipent details and let Gift Assistant send you personalized reminders complete with gift
+        ideas straight to your inbox!</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Free Sign Up</a>
+    </p>
+    <p>Already registered? <a href="#">Login</a></p>
+</div>
 {% endblock content %}
+
+{% block footer %}
+<footer class="py-3 my-4 soft-background">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-black">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-black">Features</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-black">About</a></li>
+        <li class="nav-item">
+            <p class="nav-link px-2 text-black">Photo by Olivia Bollen on Unsplash</p>
+        </li>
+    </ul>
+    <p class="text-center text-black">© 2022 Heather Gray</p>
+</footer>
+{% endblock footer %}
