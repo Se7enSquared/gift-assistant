@@ -1,3 +1,31 @@
+html,
+body {
+    height: 100%;
+}
+
 body {
     display: flex;
+    flex-direction: column;
+}
+
+#ga-welcome {
+    padding-top: 50px;
+    float: left;
+}
+
+
+.content {
+    flex: 1 0 auto;
+}
+
+.soft-background {
+    background: rgba(229, 231, 235, 0.75);
+}
+
+#sidebar {
+    height: 100%;
+    width: 140px;
+    top: 0;
+    left: 0;
+    position: fixed;
 }
