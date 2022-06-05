@@ -54,3 +54,46 @@ class Recipient(models.Model):
 
     class Meta:
         ordering = ["last_name"]
+
+
+class Occasion(models.Model):
+    name = models.CharField(max_length=50)
+    occasion_type = models.CharField(max_length=50)
+    repeat_yearly = models.BooleanField()
+    occasion_date = models.DateField()
+    description = models.TextField()
+
+    recipient = models.ForeignKey(
+        Recipient,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    def __str__(self):
+        return f"{self.first_name} : {self.relationship}"
+
+    class Meta:
+        ordering = ["name"]
+
+
+class Gift(models.Model):
+    title = models.CharField(max_length=50)
+    description = models.TextField()
+    gift_type = models.CharField(max_length=50)
+    link = models.URLField()
+    occasion_id = models.ForeignKey(
+        Occasion,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    recipient = models.ForeignKey(
+        Recipient,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    def __str__(self):
+        return f"{self.title} : {self.link}"
+
+    class Meta:
+        ordering = ["title"]
