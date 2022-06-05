@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 
-from .models import Recipient
+from .models import Recipient, Gift
 from .forms import RecipientForm
 
 
@@ -35,3 +35,8 @@ def recipient_edit(request):
 
 def recipient_delete(request):
     pass
+
+
+def gift_list(request):
+    gifts = Gift.objects.all()
+    return render(request, 'gifts.html', {'gifts': gifts})
