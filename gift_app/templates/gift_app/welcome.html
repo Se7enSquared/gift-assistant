@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <nav id="sidebar" class="space-top">
+        {% include "sidebar.html" %}
+    </nav>
+    <div class="jumbotron jumbotron-fluid" id="ga-welcome">
+        <div class="container">
+            <h1 class="display-4">Welcome back {{ user.get_username }}</h1>
+            <p class="lead">Choose a sidebar option to get started</p>
+        </div>
+    </div>
+{% endblock content %}
