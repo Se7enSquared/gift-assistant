@@ -10,15 +10,14 @@ def home(request):
         # TODO: Remove this comment before production
         # To see the homepage like a logged out user,
         # change 'welcome' to 'home'
-        return render(request, 'welcome.html')
+        return render(request, 'home.html')
     else:
         return render(request, 'home.html')
 
 
 def recipient_list(request):
-    recipients = Recipient.objects.all()
     return render(request, 'recipients.html', {
-        'recipients': recipients})
+        'recipients': Recipient.objects.all()})
 
 
 def recipient_detail(request):
@@ -38,5 +37,4 @@ def recipient_delete(request):
 
 
 def gift_list(request):
-    gifts = Gift.objects.all()
-    return render(request, 'gifts.html', {'gifts': gifts})
+    return render(request, 'gifts.html', {'gifts': Gift.objects.all()})
