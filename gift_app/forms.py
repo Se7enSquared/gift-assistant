@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from .models import Recipient
+from .models import Occasion, Recipient
 
 
 class RecipientForm(ModelForm):
@@ -15,3 +15,14 @@ class RecipientForm(ModelForm):
             "gender",
             "notes",
         ]
+
+
+class OccasionForm(ModelForm):
+    model = Occasion
+    fields = [
+        "name",
+        "occasion_type",
+        "repeat_yearly",
+        "occasion_date",
+        "description",
+    ]
