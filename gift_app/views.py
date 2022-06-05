@@ -11,7 +11,7 @@ def home(request):
         # To see the homepage like a logged out user,
         # change 'welcome' to 'home' and refresh
         # the '' route
-        return render(request, 'welcome.html')
+        return render(request, 'home.html')
     return render(request, 'home.html')
 
 
