@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block custom_stylesheet %}
+<link rel="stylesheet" href="{% static 'css/homestyle.css' %}">
+{% endblock custom_stylesheet %}
+{% block content %}
+<div class="jumbotron soft-background text-center" id="ga-logged-out">
+    <h1 class="display-4">Welcome to Gift Assistant</h1>
+    <p class="lead">If you've ever forgotten and important occasion or if you simply don't have time to manage
+        gift-giving for your friends and family, let Gift Assistant handle it for you.</p>
+    <hr class="my-4">
+    <p>Simply enter your recipent details and let Gift Assistant send you personalized reminders complete with gift
+        ideas straight to your inbox!</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" data-bs-toggle="modal" data-bs-target="#signup" role="button">Free
+            Sign Up</a>
+    </p>
+    <div>
+        <p>Already registered? <a href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Login</a></p>
+    </div>
+</div>
+<!-- SIGN UP MODAL -->-->
+<div class="modal fade" id="signup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Sign Up for Gift Assistant</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="name" aria-describedby="nameHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastname" aria-describedby="lastnameHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Send me information about new features</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <p class="text-muted">Already have an account? Login now.</p>
+                <a href="#">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Log in to Gift Assistant</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <p class="text-muted">Don't have an account? Sign up now.</p>
+                <a href="#">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block footer %}
+<footer class="py-3 my-4 soft-background">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-black">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-black">Features</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-black">About</a></li>
+        <li class="nav-item">
+            <p class="nav-link px-2 text-black">Photo by Olivia Bollen on Unsplash</p>
+        </li>
+    </ul>
+    <p class="text-center text-black">© 2022 Heather Gray</p>
+</footer>
+{% endblock footer %}

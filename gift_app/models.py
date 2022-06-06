@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from gift_assist import settings
+
+SELECT = "select"
 
 
 class Profile(models.Model):
@@ -15,31 +16,83 @@ class Profile(models.Model):
 class Recipient(models.Model):
 
     RELATIONSHIP = (
-        "Select Relationship" "Spouse",
-        "Parent" "Sibling",
-        "Friend",
-        "Grandparent",
-        "Cousin",
-        "Coworker",
-        "Add Relationship",
+        ("Select", "Select"),
+        ("Spouse", "Spouse"),
+        ("Parent", "Parent"),
+        ("Sibling", "Sibling"),
+        ("Friend", "Friend"),
+        ("Grandparent", "Grandparent"),
+        ("Cousin", "Cousin"),
+        ("Coworker", "Coworker"),
+        ("Other", "Other")
     )
 
     GENDER = (
-        "Select Gender",
-        "Female",
-        "Male",
-        "Non-Binary",
+        ("Select", "Select"),
+        ("Female", "Female"),
+        ("Male", "Male"),
+        ("Non-Binary", "Non-Binary"),
     )
 
-    name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     birth_date = models.DateField()
     email = models.EmailField()
     relationship = models.CharField(
-        max_length=16, choices=RELATIONSHIP, default=RELATIONSHIP[0]
-    )
-    gender = models.CharField(max_length=10, choices=GENDER, default=GENDER[0])
-    notes = models.TextField(max_length=256)
+        max_length=16, choices=RELATIONSHIP, default=SELECT)
+    gender = models.CharField(max_length=10, choices=GENDER, default=SELECT)
+    notes = models.TextField()
     user_id = models.ForeignKey(
-        "User",
+        User,
+        null=True,
         on_delete=models.SET_NULL,
     )
+
+    def __str__(self):
+        return f"{self.first_name} : {self.relationship}"
+
+    class Meta:
+        ordering = ["last_name"]
+
+
+class Occasion(models.Model):
+    name = models.CharField(max_length=50)
+    occasion_type = models.CharField(max_length=50)
+    repeat_yearly = models.BooleanField()
+    occasion_date = models.DateField()
+    description = models.TextField()
+
+    recipient = models.ForeignKey(
+        Recipient,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    def __str__(self):
+        return f"{self.first_name} : {self.relationship}"
+
+    class Meta:
+        ordering = ["name"]
+
+
+class Gift(models.Model):
+    title = models.CharField(max_length=50)
+    description = models.TextField()
+    gift_type = models.CharField(max_length=50)
+    link = models.URLField()
+    occasion_id = models.ForeignKey(
+        Occasion,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    recipient = models.ForeignKey(
+        Recipient,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    def __str__(self):
+        return f"{self.title} : {self.link}"
+
+    class Meta:
+        ordering = ["title"]

@@ -1,0 +1,10 @@
+#ga-welcome {
+    padding-top: 50px;
+}
+.soft-background {
+    background: rgba(229, 231, 235, 0.75);
+}
+
+.flexbox-item{
+    display: flex;
+}
