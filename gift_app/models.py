@@ -58,7 +58,7 @@ class Recipient(models.Model):
 class Occasion(models.Model):
     name = models.CharField(max_length=50)
     occasion_type = models.CharField(max_length=50)
-    repeat_yearly = models.BooleanField()
+    repeat_yearly = models.BooleanField(default=False)
     occasion_date = models.DateField()
     description = models.TextField()
 
@@ -83,11 +83,13 @@ class Gift(models.Model):
     occasion_id = models.ForeignKey(
         Occasion,
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
     )
     recipient = models.ForeignKey(
         Recipient,
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
     )
 
