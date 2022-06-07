@@ -83,11 +83,13 @@ class Gift(models.Model):
     occasion_id = models.ForeignKey(
         Occasion,
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
     )
     recipient = models.ForeignKey(
         Recipient,
         null=True,
+        blank=True,
         on_delete=models.SET_NULL,
     )
 
