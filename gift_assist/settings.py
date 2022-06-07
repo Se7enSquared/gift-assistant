@@ -41,7 +41,7 @@ ROOT_URLCONF = 'gift_assist.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['./gift_app/templates/gift_app'],
+        'DIRS': ['./gift_assist/templates', './gift_app/templates/gift_app'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -108,3 +108,4 @@ STATIC_ROOT = os.path.join(BASE_DIR,  'static')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL = "/"
