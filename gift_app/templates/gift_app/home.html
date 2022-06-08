@@ -19,45 +19,7 @@
         <p>Already registered? <a href="" data-bs-toggle="modal" data-bs-target="#loginmodal">Login</a></p>
     </div>
 </div>
-<!-- SIGN UP MODAL -->-->
-<div class="modal fade" id="signup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="signupmodal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="signupmodal">Sign Up for Gift Assistant</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {% include "registration/register.html" %}
-            </div>
-            <div class="modal-footer">
-                <p class="text-muted">Already have an account? Login now.</p>
-                <a href="" data-bs-toggle="modal" data-bs-target="#loginmodal">Login</a>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- LOGIN MODAL -->
-<div class="modal fade" id="loginmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="signupmodal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="signupmodal">Log in to Gift Assistant</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {% include "registration/login.html" %}
-            </div>
-            <div class="modal-footer">
-                <p class="text-muted">Don't have an account? Sign up now.</p>
-                <a href="" data-bs-toggle="modal" data-bs-target="#signup">Sign Up</a>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock content %}
 
 {% block footer %}
