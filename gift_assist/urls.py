@@ -7,5 +7,4 @@ urlpatterns = [
     path('', include('gift_app.urls')),
     path('gift-backend/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-
 ]
