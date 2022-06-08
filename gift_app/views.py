@@ -1,10 +1,19 @@
-from pickletools import read_uint1
-from django.shortcuts import render
-from django.contrib.auth.forms import AuthenticationForm as authform
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 
 from .models import Recipient, Gift
 # from .forms import RecipientForm
+
+
+def login_user(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect('home')
 
 
 def home(request):
@@ -13,7 +22,7 @@ def home(request):
         # To see the homepage like a logged out user,
         # change 'welcome' to 'home' and refresh
         # the '' route
-        return render(request, 'home.html')
+        return render(request, 'welcome.html')
     return render(request, 'home.html')
 
 

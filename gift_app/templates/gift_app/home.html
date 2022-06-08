@@ -16,58 +16,19 @@
             Sign Up</a>
     </p>
     <div>
-        <p>Already registered? <a href="" data-bs-toggle="modal" data-bs-target="#loginmodal">Login</a></p>
-    </div>
-</div>
-<!-- SIGN UP MODAL -->-->
-<div class="modal fade" id="signup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="signupmodal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="signupmodal">Sign Up for Gift Assistant</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {% include "registration/register.html" %}
-            </div>
-            <div class="modal-footer">
-                <p class="text-muted">Already have an account? Login now.</p>
-                <a href="" data-bs-toggle="modal" data-bs-target="#loginmodal">Login</a>
-            </div>
-        </div>
+        <p>Already registered? <a href="{% url 'login' %}">Login</a></p>
     </div>
 </div>
 
-<!-- LOGIN MODAL -->
-<div class="modal fade" id="loginmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="signupmodal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="signupmodal">Log in to Gift Assistant</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {% include "registration/login.html" %}
-            </div>
-            <div class="modal-footer">
-                <p class="text-muted">Don't have an account? Sign up now.</p>
-                <a href="" data-bs-toggle="modal" data-bs-target="#signup">Sign Up</a>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock content %}
 
 {% block footer %}
 <footer class="py-3 my-4 soft-background">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-black">Home</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-black">Features</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-black">About</a></li>
         <li class="nav-item">
-            <p class="nav-link px-2 text-black">Photo by Olivia Bollen on Unsplash</p>
+            <p class="nav-link px-2 text-black">  Photo by Olivia Bollen on Unsplash</p>
         </li>
     </ul>
     <p class="text-center text-black">© 2022 Heather Gray</p>
