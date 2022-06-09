@@ -17,13 +17,27 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 # Application definition
 
 INSTALLED_APPS = [
+    # django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    # external
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # gift apps
     'gift_app',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 MIDDLEWARE = [
@@ -41,7 +55,9 @@ ROOT_URLCONF = 'gift_assist.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['./gift_assist/templates', './gift_app/templates/gift_app'],
+        'DIRS': [os.path.join(BASE_DIR, 'gift_assist/templates'),
+                 os.path.join(BASE_DIR, 'gift_app/templates/gift_app'),
+                 os.path.join(BASE_DIR, 'gift_assist/templates/allauth')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -108,4 +124,9 @@ STATIC_ROOT = os.path.join(BASE_DIR,  'static')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_REDIRECT_URL = "/"
+
+SITE_ID = 1
+
+# TODO: change before launch to actually send emails
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+LOGIN_REDIRECT_URL = '/'

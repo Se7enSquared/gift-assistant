@@ -37,10 +37,16 @@ footer {
 
 #loginForm {
     padding: 50px;
-    margin 0 10 0 10;
+    margin: 0 10 0 10;
     width: 25%;
 }
 
 #loginh3{
     margin-bottom: 30px;
+}
+
+#signupForm {
+    padding: 50px;
+    margin: 0 10 0 10;
+    width: 25%;
 }

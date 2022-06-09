@@ -7,19 +7,11 @@
 <br><br>
 <div class="container-fluid soft-background" id="loginForm">
     <h3 id="loginh3">Log in to Gift Assistant</h2>
-        {% for message in messages %}
 
-        <div class="alert alert-success">
-            <a class="close" href="#" data-dismiss="alert">×</a>
-            {{ message }}
-        </div>
-
-        {% endfor %}
-
-        <form method="post">
+        <form class="form-horizontal signup-form" id="userLoginForm" method="post" action="{% url 'account_login' %}">
             {% csrf_token %}
             <div class="mb-3">
-                <input type="text" class="form-control" name="username" placeholder="Username">
+                <input type="text" class="form-control" name="login" placeholder="Username">
             </div>
             <div class="mb-3">
                 <input type="password" class="form-control" name="password" placeholder="Password">
