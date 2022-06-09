@@ -41,7 +41,9 @@ ROOT_URLCONF = 'gift_assist.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['./gift_assist/templates', './gift_app/templates/gift_app'],
+        'DIRS': [os.path.join(BASE_DIR, 'gift_assist/templates'),
+                 os.path.join(BASE_DIR, 'gift_app/templates/gift_app'),
+                 os.path.join(BASE_DIR, 'gift_assist/templates/allauth')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
