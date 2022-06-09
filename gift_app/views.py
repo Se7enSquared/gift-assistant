@@ -7,21 +7,17 @@ from .models import Recipient, Gift
 # from .forms import RecipientForm
 
 
-def login_user(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return redirect('home')
+# def login_user(request):
+#     username = request.POST['username']
+#     password = request.POST['password']
+#     user = authenticate(request, username=username, password=password)
+#     if user is not None:
+#         login(request, user)
+#         return redirect('home')
 
 
 def home(request):
     if request.user.is_authenticated:
-        # TODO: Remove this comment before production
-        # To see the homepage like a logged out user,
-        # change 'welcome' to 'home' and refresh
-        # the '' route
         return render(request, 'welcome.html')
     return render(request, 'home.html')
 

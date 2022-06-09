@@ -6,5 +6,5 @@ from django.views.generic.base import TemplateView
 urlpatterns = [
     path('', include('gift_app.urls')),
     path('gift-backend/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
