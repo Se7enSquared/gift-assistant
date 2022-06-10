@@ -10,25 +10,26 @@
         role="form">
         {% csrf_token %}
         <h3 id="loginh3">Sign up for Gift Assistant</h2>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off"
+                <input type="text" class="form-control" name="username"  autocomplete="off"
                     minlength="1" maxlength="150" required="" id="id_username">
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" name="email" placeholder="E-mail address" autocomplete="email"
+                <input type="email" class="form-control" name="email" autocomplete="email"
                     id="id_email" aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="password1" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password1" placeholder="Password" autocomplete="new-password" required="" id="id_password1">
+                <input type="password" class="form-control" name="password1" autocomplete="new-password" required="" id="id_password1">
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="password2" class="form-label">Password (confirm)</label>
-                <input type="password" class="form-control" name="password2" placeholder="Password" autocomplete="new-password" required="" id="id_password2">
+                <input type="password" class="form-control" name="password2" autocomplete="new-password" required="" id="id_password2">
             </div>
+            <br>
             <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
 </div>
