@@ -5,11 +5,19 @@
 {% endblock custom_stylesheet %}
 {% block content %}
 <br><br>
+
 <div class="container-fluid soft-background" id="signupForm">
     <form class="form-horizontal signup-form" id="userSignupForm" action="{% url 'account_signup' %}" method="post"
         role="form">
         {% csrf_token %}
         <h3 id="loginh3">Sign up for Gift Assistant</h2>
+            <ul class="errorlist autherr">
+                {% for key, value in form.errors.items %}
+                {% if key != '__all__' %}
+                <li>{{ value }}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
             <div class="mb-2">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" name="username" autocomplete="off" minlength="1" maxlength="150"

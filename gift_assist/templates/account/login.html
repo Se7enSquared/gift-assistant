@@ -6,10 +6,14 @@
 {% block content %}
 <br><br>
 <div class="container-fluid soft-background" id="loginForm">
-    <h3 id="loginh3">Log in to Gift Assistant</h2>
-
-        <form class="form-horizontal signup-form" id="userLoginForm" method="post" action="{% url 'account_login' %}">
-            {% csrf_token %}
+    <form class="form-horizontal signup-form" id="userLoginForm" method="post" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        <h3 id="loginh3">Log in to Gift Assistant</h2>
+            <ul class="errorlist autherr">
+                {% for key, value in form.errors.items %}
+                    <li>{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}</li>
+                {% endfor %}
+                </ul>
             <div class="mb-3">
                 <input class="form-control" type="text" name="login" placeholder="Username" autocomplete="off"
                     maxlength="150" required="" id="id_login">
