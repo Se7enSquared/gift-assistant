@@ -12,20 +12,22 @@
         <h3 id="loginh3">Sign up for Gift Assistant</h2>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" name="username" required>
+                <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off"
+                    minlength="1" maxlength="150" required="" id="id_username">
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                <input type="email" class="form-control" name="email" placeholder="E-mail address" autocomplete="email"
+                    id="id_email" aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
                 <label for="password1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password1" name="password1">
+                <input type="password" class="form-control" name="password1" placeholder="Password" autocomplete="new-password" required="" id="id_password1">
             </div>
             <div class="mb-3">
                 <label for="password2" class="form-label">Password (confirm)</label>
-                <input type="password" class="form-control" id="password2" name="password2">
+                <input type="password" class="form-control" name="password2" placeholder="Password" autocomplete="new-password" required="" id="id_password2">
             </div>
             <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
@@ -44,3 +46,4 @@
     <p class="text-center text-black">© 2022 Heather Gray</p>
 </footer>
 {% endblock footer %}
+
