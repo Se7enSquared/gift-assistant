@@ -36,12 +36,12 @@ class Recipient(models.Model):
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    birth_date = models.DateField()
-    email = models.EmailField()
+    birth_date = models.DateField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
     relationship = models.CharField(
         max_length=16, choices=RELATIONSHIP, default=SELECT)
     gender = models.CharField(max_length=10, choices=GENDER, default=SELECT)
-    notes = models.TextField()
+    notes = models.TextField(blank=True, null=True)
     user_id = models.ForeignKey(
         User,
         null=True,
