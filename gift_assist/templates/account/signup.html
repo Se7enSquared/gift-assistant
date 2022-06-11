@@ -5,28 +5,41 @@
 {% endblock custom_stylesheet %}
 {% block content %}
 <br><br>
+
 <div class="container-fluid soft-background" id="signupForm">
     <form class="form-horizontal signup-form" id="userSignupForm" action="{% url 'account_signup' %}" method="post"
         role="form">
         {% csrf_token %}
         <h3 id="loginh3">Sign up for Gift Assistant</h2>
-            <div class="mb-3">
+            <ul class="errorlist autherr">
+                {% for key, value in form.errors.items %}
+                {% if key != '__all__' %}
+                <li>{{ value }}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            <div class="mb-2">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" name="username" required>
+                <input type="text" class="form-control" name="username" autocomplete="off" minlength="1" maxlength="150"
+                    required="" id="id_username">
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                <input type="email" class="form-control" name="email" autocomplete="email" id="id_email"
+                    aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="password1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password1" name="password1">
+                <input type="password" class="form-control" name="password1" autocomplete="new-password" required=""
+                    id="id_password1">
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="password2" class="form-label">Password (confirm)</label>
-                <input type="password" class="form-control" id="password2" name="password2">
+                <input type="password" class="form-control" name="password2" autocomplete="new-password" required=""
+                    id="id_password2">
             </div>
+            <br>
             <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
 </div>
@@ -37,8 +50,9 @@
         <li class="nav-item"><a href="#" class="nav-link px-2 text-black">Home</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-black">Features</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-black">About</a></li>
-        <li class="nav-item">
-            <p class="nav-link px-2 text-black">Photo by Olivia Bollen on Unsplash</p>
+        <li class="nav-link px-2 text-black">
+            <p>Photo by Olivia Bollen on Unsplash</p>
+        </li>
         </li>
     </ul>
     <p class="text-center text-black">© 2022 Heather Gray</p>

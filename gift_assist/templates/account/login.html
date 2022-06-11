@@ -6,15 +6,21 @@
 {% block content %}
 <br><br>
 <div class="container-fluid soft-background" id="loginForm">
-    <h3 id="loginh3">Log in to Gift Assistant</h2>
-
-        <form class="form-horizontal signup-form" id="userLoginForm" method="post" action="{% url 'account_login' %}">
-            {% csrf_token %}
+    <form class="form-horizontal signup-form" id="userLoginForm" method="post" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        <h3 id="loginh3">Log in to Gift Assistant</h2>
+            <ul class="errorlist autherr">
+                {% for key, value in form.errors.items %}
+                    <li>{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}</li>
+                {% endfor %}
+                </ul>
             <div class="mb-3">
-                <input type="text" class="form-control" name="login" placeholder="Username">
+                <input class="form-control" type="text" name="login" placeholder="Username" autocomplete="off"
+                    maxlength="150" required="" id="id_login">
             </div>
             <div class="mb-3">
-                <input type="password" class="form-control" name="password" placeholder="Password">
+                <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off"
+                    required="" id="id_password">
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="remember">
@@ -30,8 +36,9 @@
         <li class="nav-item"><a href="#" class="nav-link px-2 text-black">Home</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-black">Features</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-black">About</a></li>
-        <li class="nav-item">
-            <p class="nav-link px-2 text-black">Photo by Olivia Bollen on Unsplash</p>
+        <li class="nav-link px-2 text-black">
+            <p>Photo by Olivia Bollen on Unsplash</p>
+        </li>
         </li>
     </ul>
     <p class="text-center text-black">© 2022 Heather Gray</p>
