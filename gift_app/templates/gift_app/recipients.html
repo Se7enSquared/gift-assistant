@@ -9,29 +9,21 @@
 
     </div>
 </div>
-<div class="row">
-    <div class="col-md-4">
-        <nav id="sidebar" class="space-top">
-            {% include "sidebar.html" %}
-        </nav>
-    </div>
-    <div class="col-md-8">
-        <button hx-get="{% url 'recipient_add' %}" hx-target="#dialog">
-            Add
-        </button>
-        <table class="table flex-wrapper" id="recipient_tbl">
-            <thead>
-                <tr>
-                    <th scrope="col">First Name</th>
-                    <th scrope="col">Last Name</th>
-                    <th scrope="col">Relationship</th>
-                </tr>
-            </thead>
-            <tbody hx-trigger="load, recipientListChanged from:body" hx-get="{% url 'recipient_list' %}" hx-target="this">
+<div class="col-md-8">
+    <button hx-get="{% url 'recipient_add' %}" hx-target="#dialog">
+        Add
+    </button>
+    <table class="table flex-wrapper" id="recipient_tbl">
+        <thead>
+            <tr>
+                <th scrope="col">First Name</th>
+                <th scrope="col">Last Name</th>
+                <th scrope="col">Relationship</th>
+            </tr>
+        </thead>
+        <tbody hx-trigger="load, recipientListChanged from:body" hx-get="{% url 'recipient_list' %}" hx-target="this">
 
-            </tbody>
-        </table>
-    </div>
-</div>
+        </tbody>
+    </table>
 </div>
 {% endblock content %}
