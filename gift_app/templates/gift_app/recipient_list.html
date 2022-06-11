@@ -1,0 +1,7 @@
+{% for recipient in recipients %}
+<tr id="recipient-{{ recipient.pk }}" class="table-row">
+    <td>{{recipient.first_name}}</td>
+    <td>{{recipient.last_name}}</td>
+    <td>{{recipient.relationship}}</td>
+</tr>
+{% endfor %}

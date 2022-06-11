@@ -17,8 +17,8 @@ def recipients(request):
 
 
 def recipient_list(request):
-    return render(request, 'recipient_list.html', {
-        'recipients': Recipient.objects.all()})
+    return render(request, 'recipient_list.html',
+                  {'recipients': Recipient.objects.all()})
 
 
 def recipient_detail(request):

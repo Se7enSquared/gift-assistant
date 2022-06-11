@@ -27,14 +27,8 @@
                     <th scrope="col">Relationship</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for recipient in recipients %}
-                <tr id="recipient-{{ recipient.pk }}" class="table-row">
-                    <td>{{recipient.first_name}}</td>
-                    <td>{{recipient.last_name}}</td>
-                    <td>{{recipient.relationship}}</td>
-                </tr>
-                {% endfor %}
+            <tbody hx-trigger="load, recipientListChanged from:body" hx-get="{% url 'recipient_list' %}" hx-target="this">
+
             </tbody>
         </table>
     </div>
