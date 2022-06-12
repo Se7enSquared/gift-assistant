@@ -81,6 +81,7 @@ class Gift(models.Model):
     gift_type = models.CharField(max_length=50)
     link = models.URLField(blank=True, null=True)
     given = models.BooleanField(default=False)
+    date_given = models.DateField(null=True, blank=True)
     occasion_id = models.ForeignKey(
         Occasion,
         null=True,
