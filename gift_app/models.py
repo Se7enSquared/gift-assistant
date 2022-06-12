@@ -77,9 +77,10 @@ class Occasion(models.Model):
 
 class Gift(models.Model):
     title = models.CharField(max_length=50)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     gift_type = models.CharField(max_length=50)
-    link = models.URLField()
+    link = models.URLField(blank=True, null=True)
+    given = models.BooleanField(default=False)
     occasion_id = models.ForeignKey(
         Occasion,
         null=True,
