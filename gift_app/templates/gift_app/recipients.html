@@ -9,7 +9,8 @@
 
     </div>
 </div>
-<div class="col-md-8">
+<div class="col-md-6">
+    <br><br><br><br>
     <button hx-get="{% url 'recipient_add' %}" hx-target="#dialog">
         Add
     </button>
@@ -19,6 +20,7 @@
                 <th scrope="col">First Name</th>
                 <th scrope="col">Last Name</th>
                 <th scrope="col">Relationship</th>
+                <th scrope="col">Actions</th>
             </tr>
         </thead>
         <tbody hx-trigger="load, recipientListChanged from:body" hx-get="{% url 'recipient_list' %}" hx-target="this">
