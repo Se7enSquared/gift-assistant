@@ -17,8 +17,9 @@ def recipients(request):
 
 
 def recipient_list(request):
+    recipients = Recipient.objects.filter(user=request.user)
     return render(request, 'recipient_list.html',
-                  {'recipients': Recipient.objects.all()})
+                  {'recipients': recipients})
 
 
 def recipient_detail(request):
@@ -29,7 +30,9 @@ def recipient_add(request):
     if request.method == "POST":
         form = RecipientForm(request.POST)
         if form.is_valid():
-            form.save()
+            recipient = form.save(commit=False)
+            recipient.user = request.user
+            recipient.save()
             return HttpResponse(status=204,
                                 headers={'HX-Trigger': 'recipientListChanged'})
     else:
@@ -45,10 +48,6 @@ def recipient_edit(request):
 
 def recipient_delete(request):
     pass
-
-
-def gift_list(request):
-    return render(request, 'gifts.html', {'gifts': Gift.objects.all()})
 
 
 def occasions(request):
@@ -73,9 +72,45 @@ def occasion_add(request):
         'form': form,
     })
 
+
 def occasion_edit(request):
     pass
 
 
 def occasion_delete(request):
+    pass
+
+
+def gifts(request):
+    return render(request, 'gifts.html')
+
+
+def gift_list(request):
+    return render(request, 'gift_list.html',
+                  {'gifts': Gift.objects.all()})
+
+
+def gift_detail(request):
+    pass
+
+
+def gift_add(request):
+    if request.method == "POST":
+        form = RecipientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse(status=204,
+                                headers={'HX-Trigger': 'giftListChanged'})
+    else:
+        form = RecipientForm()
+    return render(request, 'gift_form.html', {
+        'form': form,
+    })
+
+
+def gift_edit(request):
+    pass
+
+
+def gift_delete(request):
     pass
