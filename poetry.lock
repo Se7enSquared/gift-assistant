@@ -84,6 +84,14 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-active-link"
+version = "0.1.8"
+description = "The best way to highlight active links in your Django app."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "django-allauth"
 version = "0.51.0"
 description = "Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication."
@@ -263,7 +271,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "159d5de619257034ccc3488214c399c20ee42bf9d77b44a6d7a5c313328b989a"
+content-hash = "4e43afd3265370c7071676201ddb32dccdf37e8fa23d19e461462c1f2e198d06"
 
 [metadata.files]
 asgiref = [
@@ -361,6 +369,10 @@ defusedxml = [
 django = [
     {file = "Django-4.0.5-py3-none-any.whl", hash = "sha256:502ae42b6ab1b612c933fb50d5ff850facf858a4c212f76946ecd8ea5b3bf2d9"},
     {file = "Django-4.0.5.tar.gz", hash = "sha256:f7431a5de7277966f3785557c3928433347d998c1e6459324501378a291e5aab"},
+]
+django-active-link = [
+    {file = "django-active-link-0.1.8.tar.gz", hash = "sha256:87aac58cc89913ff3b017b91cb24cda0dbb05945aa46c6a1428d0744b56a3e1f"},
+    {file = "django_active_link-0.1.8-py2.py3-none-any.whl", hash = "sha256:a6a94f92e9150d05be4491e10e5dfb3274c08dd88866081f5f90ea2d738db647"},
 ]
 django-allauth = [
     {file = "django-allauth-0.51.0.tar.gz", hash = "sha256:ca1622733b6faa591580ccd3984042f12d8c79ade93438212de249b7ffb6f91f"},
