@@ -30,6 +30,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{% url 'occasions' %}" class="nav-link {% active_link 'occasions' 'activegifts' 'active' %}">
+                                <svg class="bi me-2" width="16" height="16">
+                                    <use xlink:href="occasions"></use>
+                                </svg>
+                                Occasions
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{% url 'gifts' %}" class="nav-link {% active_link 'gifts' 'active' %}">
                                 <svg class="bi me-2" width="16" height="16">
                                     <use xlink:href="gifts"></use>

@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 
-from .models import Recipient, Gift
-from .forms import RecipientForm
+from .models import Recipient, Gift, Occasion
+from .forms import RecipientForm, OccasionForm
 
 
 def home(request):
@@ -49,3 +49,33 @@ def recipient_delete(request):
 
 def gift_list(request):
     return render(request, 'gifts.html', {'gifts': Gift.objects.all()})
+
+
+def occasions(request):
+    return render(request, 'occasions.html')
+
+
+def occasion_list(request):
+    return render(request, 'occasion_list.html',
+                  {'occasions': Occasion.objects.all()})
+
+
+def occasion_add(request):
+    if request.method == "POST":
+        form = OccasionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse(status=204,
+                                headers={'HX-Trigger': 'occasionListChanged'})
+    else:
+        form = OccasionForm()
+    return render(request, 'occasion_form.html', {
+        'form': form,
+    })
+
+def occasion_edit(request):
+    pass
+
+
+def occasion_delete(request):
+    pass

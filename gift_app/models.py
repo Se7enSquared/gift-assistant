@@ -60,7 +60,7 @@ class Occasion(models.Model):
     occasion_type = models.CharField(max_length=50)
     repeat_yearly = models.BooleanField(default=False)
     occasion_date = models.DateField()
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
 
     recipient = models.ForeignKey(
         Recipient,

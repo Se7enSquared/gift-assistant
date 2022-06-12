@@ -1,0 +1,8 @@
+{% for occasion in occasions %}
+<tr id="occasion-{{ occasion.pk }}" class="table-row">
+    <td>{{occasion.recipient.first_name}} {{occasion.recipient.last_name}}</td>
+    <td>{{occasion.name}}</td>
+    <td>{{occasion.occasion_type}}</td>
+    <td>{{occasion.occasion_date}}</td>
+</tr>
+{% endfor %}

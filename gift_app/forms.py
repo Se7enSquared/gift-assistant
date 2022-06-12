@@ -18,11 +18,13 @@ class RecipientForm(ModelForm):
 
 
 class OccasionForm(ModelForm):
-    model = Occasion
-    fields = [
-        "name",
-        "occasion_type",
-        "repeat_yearly",
-        "occasion_date",
-        "description",
-    ]
+    class Meta:
+        model = Occasion
+        fields = [
+            "recipient",
+            "name",
+            "occasion_type",
+            "repeat_yearly",
+            "occasion_date",
+            "description",
+        ]
