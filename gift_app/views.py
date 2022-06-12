@@ -11,7 +11,7 @@ def home(request):
         return render(request, 'welcome.html')
     return render(request, 'home.html')
 
-
+# R E C I P I E N T  V I E W S ------------------------>
 def recipients(request):
     return render(request, 'recipients.html')
 
@@ -49,7 +49,7 @@ def recipient_edit(request):
 def recipient_delete(request):
     pass
 
-
+# O C C A S I O N  V I E W S ------------------------>
 def occasions(request):
     return render(request, 'occasions.html')
 
@@ -80,14 +80,15 @@ def occasion_edit(request):
 def occasion_delete(request):
     pass
 
-
+# G I F T  V I E W S ------------------------>
 def gifts(request):
     return render(request, 'gifts.html')
 
 
 def gift_list(request):
+    gifts = Recipient.objects.filter(user=request.user)
     return render(request, 'gift_list.html',
-                  {'gifts': Gift.objects.all()})
+                  {'gifts': gifts})
 
 
 def gift_detail(request):
@@ -98,9 +99,11 @@ def gift_add(request):
     if request.method == "POST":
         form = RecipientForm(request.POST)
         if form.is_valid():
-            form.save()
+            recipient = form.save(commit=False)
+            recipient.user = request.user
+            recipient.save()
             return HttpResponse(status=204,
-                                headers={'HX-Trigger': 'giftListChanged'})
+                                headers={'HX-Trigger': 'recipientListChanged'})
     else:
         form = RecipientForm()
     return render(request, 'gift_form.html', {
