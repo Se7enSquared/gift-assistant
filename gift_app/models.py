@@ -61,15 +61,19 @@ class Occasion(models.Model):
     repeat_yearly = models.BooleanField(default=False)
     occasion_date = models.DateField()
     description = models.TextField(blank=True, null=True)
-
     recipient = models.ForeignKey(
         Recipient,
         null=True,
         on_delete=models.SET_NULL,
     )
-
+    user = models.ForeignKey(
+        User,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    
     def __str__(self):
-        return f"{self.first_name} : {self.relationship}"
+        return f"{self.name} : {self.occasion_date}"
 
     class Meta:
         ordering = ["name"]
@@ -82,7 +86,7 @@ class Gift(models.Model):
     link = models.URLField(blank=True, null=True)
     given = models.BooleanField(default=False)
     date_given = models.DateField(null=True, blank=True)
-    occasion_id = models.ForeignKey(
+    occasion = models.ForeignKey(
         Occasion,
         null=True,
         blank=True,
@@ -92,6 +96,11 @@ class Gift(models.Model):
         Recipient,
         null=True,
         blank=True,
+        on_delete=models.SET_NULL,
+    )
+    user = models.ForeignKey(
+        User,
+        null=True,
         on_delete=models.SET_NULL,
     )
 
