@@ -9,22 +9,22 @@
 
     </div>
 </div>
-
-<div class="col-md-6">
+<div class="col-md-7">
     <br><br><br><br>
-    <button hx-get="{% url 'occasion_add' %}" hx-target="#dialog">
+    <button hx-get="{% url 'gift_add' %}" hx-target="#dialog">
         Add
     </button>
-    <table class="table flex-wrapper" id="occasion_tbl">
+    <table class="table flex-wrapper" id="gift_tbl">
         <thead>
             <tr>
+                <th scrope="col">Title</th>
                 <th scrope="col">Recipient</th>
-                <th scrope="col">Occasion</th>
-                <th scrope="col">Type</th>
-                <th scrope="col">Date</th>
+                <th scrope="col">Link</th>
+                <th scrope="col">Given?</th>
+                <th scrope="col">Actions</th>
             </tr>
         </thead>
-        <tbody hx-trigger="load, occasionListChanged from:body" hx-get="{% url 'occasion_list' %}" hx-target="this">
+        <tbody hx-trigger="load, giftListChanged from:body" hx-get="{% url 'gift_list' %}" hx-target="this">
 
         </tbody>
     </table>

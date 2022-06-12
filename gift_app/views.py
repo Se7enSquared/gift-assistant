@@ -3,13 +3,14 @@ from django.shortcuts import render
 
 
 from .models import Recipient, Gift, Occasion
-from .forms import RecipientForm, OccasionForm
+from .forms import RecipientForm, OccasionForm, GiftForm
 
 
 def home(request):
     if request.user.is_authenticated:
         return render(request, 'welcome.html')
     return render(request, 'home.html')
+
 
 # R E C I P I E N T  V I E W S ------------------------>
 def recipients(request):
@@ -80,13 +81,14 @@ def occasion_edit(request):
 def occasion_delete(request):
     pass
 
+
 # G I F T  V I E W S ------------------------>
 def gifts(request):
     return render(request, 'gifts.html')
 
 
 def gift_list(request):
-    gifts = Recipient.objects.filter(user=request.user)
+    gifts = Gift.objects.filter(user=request.user)
     return render(request, 'gift_list.html',
                   {'gifts': gifts})
 
@@ -97,15 +99,15 @@ def gift_detail(request):
 
 def gift_add(request):
     if request.method == "POST":
-        form = RecipientForm(request.POST)
+        form = GiftForm(request.POST)
         if form.is_valid():
             recipient = form.save(commit=False)
             recipient.user = request.user
             recipient.save()
             return HttpResponse(status=204,
-                                headers={'HX-Trigger': 'recipientListChanged'})
+                                headers={'HX-Trigger': 'giftListChanged'})
     else:
-        form = RecipientForm()
+        form = GiftForm()
     return render(request, 'gift_form.html', {
         'form': form,
     })

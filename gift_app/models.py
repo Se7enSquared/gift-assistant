@@ -71,7 +71,7 @@ class Occasion(models.Model):
         null=True,
         on_delete=models.SET_NULL,
     )
-    
+
     def __str__(self):
         return f"{self.name} : {self.occasion_date}"
 

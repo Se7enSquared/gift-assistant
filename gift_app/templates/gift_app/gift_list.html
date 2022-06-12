@@ -1,15 +1,15 @@
 {% for gift in gifts %}
-{% if gift.given == True %}
-<tr id="occasion-{{ occasion.pk }}" class="table-row">
-    <td>{{occasion.recipient.first_name}} {{occasion.recipient.last_name}}</td>
-    <td>{{occasion.name}}</td>
-    <td>{{occasion.occasion_type}}</td>
-    <td>{{occasion.occasion_date}}</td>
+<tr id="gift-{{ gift.pk }}" class="table-row">
+    <td>{{gift.title}}</td>
+    <td>{{gift.recipient.first_name}} {{gift.recipient.last_name}}</td>
+    <td>{{gift.link}}</td>
+    <td>
+        {% if gift.given == True %}Yes{%else%}No{% endif %}
+        </td>
     <td>
         <a href="#"><span class="iconify" data-icon="mdi:eye" data-width="24" data-height="24" style="margin-right:2px"></span></a>
         <a href="#"><span class="iconify" data-icon="ep:edit-pen" data-width="24" data-height="24" style="margin-right:2px"></span></a>
         <a href="#"><span class="iconify" data-icon="fluent:delete-16-regular" data-width="24" data-height="24"></span></a>
     </td>
-    {% endif %}
 </tr>
 {% endfor %}
