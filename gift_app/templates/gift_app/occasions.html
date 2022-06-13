@@ -6,25 +6,28 @@
 {% block content %}
 <div id="modal" class="modal fade">
     <div id="dialog" class="modal-dialog" hx-target="this">
+
     </div>
 </div>
+
 <div class="col-md-6">
     <br><br><br><br>
-    <button hx-get="{% url 'recipient_add' %}" hx-target="#dialog">
+    <button hx-get="{% url 'occasion_add' %}" hx-target="#dialog">
         Add
     </button>
-    <table class="table flex-wrapper" id="recipient_tbl">
+    <table class="table flex-wrapper" id="occasion_tbl">
         <thead>
             <tr>
-                <th scrope="col">First Name</th>
-                <th scrope="col">Last Name</th>
-                <th scrope="col">Relationship</th>
-                <th scrope="col">Actions</th>
+                <th scrope="col">Recipient</th>
+                <th scrope="col">Occasion</th>
+                <th scrope="col">Type</th>
+                <th scrope="col">Date</th>
             </tr>
         </thead>
-        <tbody hx-trigger="load, recipientListChanged from:body" hx-get="{% url 'recipient_list' %}" hx-target="this">
+        <tbody hx-trigger="load, occasionListChanged from:body" hx-get="{% url 'occasion_list' %}" hx-target="this">
 
         </tbody>
     </table>
 </div>
+
 {% endblock content %}

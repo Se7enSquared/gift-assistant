@@ -36,13 +36,13 @@ class Recipient(models.Model):
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    birth_date = models.DateField()
-    email = models.EmailField()
+    birth_date = models.DateField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
     relationship = models.CharField(
         max_length=16, choices=RELATIONSHIP, default=SELECT)
     gender = models.CharField(max_length=10, choices=GENDER, default=SELECT)
-    notes = models.TextField()
-    user_id = models.ForeignKey(
+    notes = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(
         User,
         null=True,
         on_delete=models.SET_NULL,
@@ -60,16 +60,20 @@ class Occasion(models.Model):
     occasion_type = models.CharField(max_length=50)
     repeat_yearly = models.BooleanField(default=False)
     occasion_date = models.DateField()
-    description = models.TextField()
-
+    description = models.TextField(blank=True, null=True)
     recipient = models.ForeignKey(
         Recipient,
         null=True,
         on_delete=models.SET_NULL,
     )
+    user = models.ForeignKey(
+        User,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
 
     def __str__(self):
-        return f"{self.first_name} : {self.relationship}"
+        return f"{self.name} : {self.occasion_date}"
 
     class Meta:
         ordering = ["name"]
@@ -77,10 +81,12 @@ class Occasion(models.Model):
 
 class Gift(models.Model):
     title = models.CharField(max_length=50)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     gift_type = models.CharField(max_length=50)
-    link = models.URLField()
-    occasion_id = models.ForeignKey(
+    link = models.URLField(blank=True, null=True)
+    given = models.BooleanField(default=False)
+    date_given = models.DateField(null=True, blank=True)
+    occasion = models.ForeignKey(
         Occasion,
         null=True,
         blank=True,
@@ -90,6 +96,11 @@ class Gift(models.Model):
         Recipient,
         null=True,
         blank=True,
+        on_delete=models.SET_NULL,
+    )
+    user = models.ForeignKey(
+        User,
+        null=True,
         on_delete=models.SET_NULL,
     )
 
