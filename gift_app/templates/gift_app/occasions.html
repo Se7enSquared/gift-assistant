@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-8">
     <br><br><br><br>
     <button hx-get="{% url 'occasion_add' %}" hx-target="#dialog">
         Add
@@ -18,10 +18,11 @@
     <table class="table flex-wrapper" id="occasion_tbl">
         <thead>
             <tr>
-                <th scrope="col">Recipient</th>
-                <th scrope="col">Occasion</th>
-                <th scrope="col">Type</th>
-                <th scrope="col">Date</th>
+                <th scope="col" style="max-width: 150px; word-wrap: break-word;">Recipient</th>
+                <th scope="col" style="max-width: 150px; word-wrap: break-word;">Occasion</th>
+                <th scope="col" style="max-width: 150px; word-wrap: break-word;">Type</th>
+                <th scope="col" style="max-width: 150px; word-wrap: break-word;">Date</th>
+                <th scope="col" style="max-width: 150px; word-wrap: break-word;">Action</th>
             </tr>
         </thead>
         <tbody hx-trigger="load, occasionListChanged from:body" hx-get="{% url 'occasion_list' %}" hx-target="this">

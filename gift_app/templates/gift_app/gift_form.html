@@ -1,13 +1,62 @@
 <form hx-post="{{ request.path }}" class="modal-content">
     {% csrf_token %}
+    <ul style='list-style: none;'}>
+        {% for key, value in form.errors.items %}
+        <li style="list-style: none;">{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}</li>
+        {% endfor %}
+    </ul>
     <div class="modal-header">
-      <h5 class="modal-title">Add Gift</h5>
+        <h5 class="modal-title">Add Gift</h5>
     </div>
     <div class="modal-body">
-      {{ form.as_p }}
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" class="form-control" id="title">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control rounded-0" id="description" name="description" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="gift_type">Gift Type</label>
+            <input type="text" class="form-control" name="gift_type" id="gift_type">
+        </div>
+        <div class="form-group">
+            <label for="id_link">Link</label>
+            <input type="url" name="link" maxlength="200" id="id_link">
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="given" name="given" value="True">
+            <label class="form-check-label">Given</label>
+        </div>
+        <div class="form-group">
+            <label for="date_given">Date</label>
+            <div class="input-group date" id="datepicker">
+                <input type="date" name="date_given" id="date_given" class="form-control" placeholder="MM/DD/YYYY" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_occasion">Occasion</label>
+            <select name="occasion" id="id_occasion">
+                <option value="-1" selected>Select Occasion</option>
+                {% for occasion in occasions %}
+                <option value="{{occasion.occasion_id}}">{{occasion.name}}: {{occasion.occasion_date}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="id_recipient">Recipient</label>
+            <select name="recipient" id="id_recipient">
+                <option value="-1" selected>Select Recipient</option>
+                {% for recipient in recipients %}
+                <option value="{{recipient.recipient_id}}">{{recipient.first_name}} {{recipient.last_name}}:
+                    {{recipient.relationship}}</option>
+                {% endfor %}
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
-      <button type="button" data-bs-dismiss="modal">Cancel</button>
-      <button type="submit">Save</button>
+        <button type="button" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit">Save</button>
     </div>
-  </form>
+</form>
