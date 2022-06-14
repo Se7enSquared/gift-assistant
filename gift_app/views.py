@@ -50,6 +50,7 @@ def recipient_edit(request):
 def recipient_delete(request):
     pass
 
+
 # O C C A S I O N  V I E W S ------------------------>
 def occasions(request):
     return render(request, 'occasions.html')
@@ -93,24 +94,34 @@ def gift_list(request):
                   {'gifts': gifts})
 
 
-def gift_detail(request):
-    pass
+def gift_view(request, pk):
+    gift = Gift.objects.get(pk=pk)
+
+    if request.method == "GET":
+        form = GiftForm(request.GET)
+    else:
+        form = GiftForm()
+    return render(request, 'gift_view.html', {'gift': gift, 'form': form})
 
 
 def gift_add(request):
+    recipients = Recipient.objects.filter(user=request.user)
+    occasions = Occasion.objects.filter(user=request.user)
     if request.method == "POST":
         form = GiftForm(request.POST)
+        context = {'form': form, 'recipients': recipients,
+                   'occasions': occasions}
         if form.is_valid():
-            recipient = form.save(commit=False)
-            recipient.user = request.user
-            recipient.save()
+            gift = form.save(commit=False)
+            gift.user = request.user
+            gift.save()
             return HttpResponse(status=204,
                                 headers={'HX-Trigger': 'giftListChanged'})
     else:
         form = GiftForm()
-    return render(request, 'gift_form.html', {
-        'form': form,
-    })
+        context = {'form': form, 'recipients': recipients,
+                   'occasions': occasions}
+    return render(request, 'gift_form.html', context)
 
 
 def gift_edit(request):
