@@ -1,6 +1,6 @@
 <form hx-post="{{ request.path }}" class="modal-content">
     {% csrf_token %}
-    <ul style='list-style: none;'}>
+    <ul style='list-style: none;' }>
         {% for key, value in form.errors.items %}
         <li style="list-style: none;">{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}</li>
         {% endfor %}
@@ -11,28 +11,28 @@
     <div class="modal-body">
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" name="title" class="form-control" id="title">
+            <input type="text" name="title" class="form-control" id="title" {% if form.title.value %}value="{{form.title.value}}"{% else %}value=""{% endif %}>
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control rounded-0" id="description" name="description" rows="3"></textarea>
+            <textarea class="form-control rounded-0" id="description" name="description" rows="3">{% if form.description.value %}{{form.description.value}}{% endif %}</textarea>
         </div>
         <div class="form-group">
             <label for="gift_type">Gift Type</label>
-            <input type="text" class="form-control" name="gift_type" id="gift_type">
+            <input type="text" class="form-control" name="gift_type" id="gift_type" {% if form.gift_type.value %}value="{{form.gift_type.value}}"{% else %}value=""{% endif %}>
         </div>
         <div class="form-group">
             <label for="id_link">Link</label>
-            <input type="url" name="link" maxlength="200" id="id_link">
+            <input type="url" class="form-control" name="link" maxlength="200" id="id_link" {% if form.link.value %}value="{{form.link.value}}"{% else %}value=""{% endif %}>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="given" name="given" value="True">
+            <input class="form-check-input" type="checkbox" id="given" name="given" {% if form.given.value %}checked{% endif %}>
             <label class="form-check-label">Given</label>
         </div>
         <div class="form-group">
             <label for="date_given">Date</label>
             <div class="input-group date" id="datepicker">
-                <input type="date" name="date_given" id="date_given" class="form-control" placeholder="MM/DD/YYYY" />
+                <input type="date" name="date_given" id="date_given" class="form-control" placeholder="MM/DD/YYYY"  {% if form.date_given.value %}value="{{form.date_given.value}}"{% else %}value=""{% endif %}/>
             </div>
         </div>
         <div class="form-group">
