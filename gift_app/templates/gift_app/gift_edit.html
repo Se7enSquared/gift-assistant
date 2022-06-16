@@ -1,0 +1,45 @@
+<form hx-post="{{ request.path }}" class="modal-content">
+    {% csrf_token %}
+    <div class="modal-header">
+        <h5 class="modal-title">View Gift</h5>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" class="form-control" id="title" value="{{ gift.title }}" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control rounded-0" id="description" name="description" rows="3">{{ gift.description }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="gift_type">Gift Type</label>
+            <input type="text" class="form-control" name="gift_type" id="gift_type" value="{{gift.gift_type}}">
+        </div>
+        <div class="form-group">
+            <label for="gift_type">Link</label>
+            <input type="text" class="form-control" name="link" id="link" value="{{gift.link}}">
+        </div>
+        <div class="form-group">
+            <label for="given">Given</label>
+            <input class="form-control" type="text" id="given" name="given" value="{{gift.given}}">
+        </div>
+        <div class="form-group">
+            <label for="date_given">Date</label>
+            <div class="input-group date" id="datepicker">
+                <input type="date" name="date_given" id="date_given" class="form-control" value="{{gift.date_given}}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="recipient">Recipient</label>
+            <input type="text" name="recipient" id="recipient" class="form-control" value="{{gift.recipient}}">
+        </div>
+        <div class="form-group">
+            <label for="occasion">Occasion</label>
+            <input type="text" name="occasion" id="occasion" class="form-control" value="{{gift.occasion}}">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-bs-dismiss="modal">OK</button>
+    </div>
+</form>
