@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'active_link',
+    'bootstrap5',
 
     # gift apps
     'gift_app',
