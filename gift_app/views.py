@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 
 from .models import Recipient, Gift, Occasion
@@ -122,13 +122,10 @@ def gift_add(request):
 
 
 def gift_edit(request, pk):
-    gift = Gift.objects.get(pk=pk)
-    recipients = Recipient.objects.filter(user=request.user)
-    occasions = Occasion.objects.filter(user=request.user)
+    gift = get_object_or_404(Gift, pk=pk)
     if request.method == "POST":
-        form = GiftForm(request.POST)
-        context = {'form': form, 'recipients': recipients,
-                   'occasions': occasions}
+        form = GiftForm(request.POST, instance=gift)
+        context = {'form': form}
         if form.is_valid():
             gift = form.save(commit=False)
             gift.user = request.user
@@ -136,10 +133,9 @@ def gift_edit(request, pk):
             return HttpResponse(status=204,
                                 headers={'HX-Trigger': 'giftListChanged'})
     else:
-        form = GiftForm(request.GET)
-        context = {'form': form, 'recipients': recipients,
-                   'occasions': occasions}
-    return render(request, 'gift_form.html', context)
+        form = GiftForm(instance=gift)
+        context = {'form': form}
+    return render(request, 'gift_edit.html', context)
 
 
 def gift_delete(request):

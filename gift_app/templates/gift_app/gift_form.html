@@ -3,7 +3,6 @@
 {% bootstrap_javascript %}
 {% bootstrap_messages %}
 <form hx-post="{{ request.path }}" class="modal-content">
-    {% csrf_token %}
     <ul style='list-style: none;' }>
         {% for key, value in form.errors.items %}
         <li style="list-style: none;">{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}</li>
