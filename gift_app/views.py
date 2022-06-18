@@ -1,3 +1,4 @@
+from cmath import e
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
@@ -138,5 +139,12 @@ def gift_edit(request, pk):
     return render(request, 'gift_edit.html', context)
 
 
-def gift_delete(request):
-    pass
+def gift_delete(request, pk):
+    gift = get_object_or_404(Gift, pk=pk)
+
+    if request.method == 'POST':
+        gift.delete()
+        return HttpResponse(status=204,
+                            headers={'HX-Trigger': 'giftListChanged'})
+    else:
+        return render(request, 'gift_delete.html', {'gift': gift})
