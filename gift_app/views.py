@@ -15,12 +15,12 @@ def home(request):
 
 # R E C I P I E N T  V I E W S ------------------------>
 def recipients(request):
-    return render(request, 'recipients.html')
+    return render(request, 'recipients/recipients.html')
 
 
 def recipient_list(request):
     recipients = Recipient.objects.filter(user=request.user)
-    return render(request, 'recipient_list.html',
+    return render(request, 'recipients/recipient_list.html',
                   {'recipients': recipients})
 
 
@@ -39,7 +39,7 @@ def recipient_add(request):
                                 headers={'HX-Trigger': 'recipientListChanged'})
     else:
         form = RecipientForm()
-    return render(request, 'recipient_form.html', {
+    return render(request, 'recipients/recipient_form.html', {
         'form': form,
     })
 
@@ -54,11 +54,11 @@ def recipient_delete(request):
 
 # O C C A S I O N  V I E W S ------------------------>
 def occasions(request):
-    return render(request, 'occasions.html')
+    return render(request, 'occasions/occasions.html')
 
 
 def occasion_list(request):
-    return render(request, 'occasion_list.html',
+    return render(request, 'occasions/occasion_list.html',
                   {'occasions': Occasion.objects.all()})
 
 
@@ -71,7 +71,7 @@ def occasion_add(request):
                                 headers={'HX-Trigger': 'occasionListChanged'})
     else:
         form = OccasionForm()
-    return render(request, 'occasion_form.html', {
+    return render(request, 'occasions/occasion_form.html', {
         'form': form,
     })
 
@@ -86,19 +86,19 @@ def occasion_delete(request):
 
 # G I F T  V I E W S ------------------------>
 def gifts(request):
-    return render(request, 'gifts.html')
+    return render(request, 'gifts/gifts.html')
 
 
 def gift_list(request):
     gifts = Gift.objects.filter(user=request.user)
-    return render(request, 'gift_list.html',
+    return render(request, 'gifts/gift_list.html',
                   {'gifts': gifts})
 
 
 def gift_view(request, pk):
     gift = Gift.objects.get(pk=pk)
     form = GiftForm(request.GET)
-    return render(request, 'gift_view.html', {'gift': gift, 'form': form})
+    return render(request, 'gifts/gift_view.html', {'gift': gift, 'form': form})
 
 
 def gift_add(request):
@@ -119,7 +119,7 @@ def gift_add(request):
         context = {'form': form, 'recipients': recipients,
                    'occasions': occasions}
 
-    return render(request, 'gift_form.html', context)
+    return render(request, 'gifts/gift_form.html', context)
 
 
 def gift_edit(request, pk):
@@ -136,7 +136,7 @@ def gift_edit(request, pk):
     else:
         form = GiftForm(instance=gift)
         context = {'form': form}
-    return render(request, 'gift_edit.html', context)
+    return render(request, 'gifts/gift_edit.html', context)
 
 
 def gift_delete(request, pk):
@@ -147,4 +147,4 @@ def gift_delete(request, pk):
         return HttpResponse(status=204,
                             headers={'HX-Trigger': 'giftListChanged'})
     else:
-        return render(request, 'gift_delete.html', {'gift': gift})
+        return render(request, 'gifts/gift_delete.html', {'gift': gift})
