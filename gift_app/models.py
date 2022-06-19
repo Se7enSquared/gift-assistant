@@ -36,6 +36,7 @@ class Recipient(models.Model):
     )
 
     MONTHS = (
+        (0, "Select"),
         (1, "January"),
         (2, "February"),
         (3, "March"),
@@ -52,7 +53,7 @@ class Recipient(models.Model):
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    birth_month = models.IntegerField(choices=MONTHS, default=1)
+    birth_month = models.IntegerField(choices=MONTHS, default=0)
     birth_day = models.IntegerField(null=True, blank=True)
     birth_year_unknown = models.BooleanField(default=False)
     birth_year = models.IntegerField(null=True, blank=True)

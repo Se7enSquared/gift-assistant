@@ -1,5 +1,5 @@
+from django import forms
 from django.forms import ModelForm
-
 from .models import Occasion, Recipient, Gift
 
 
@@ -27,6 +27,10 @@ class RecipientForm(ModelForm):
 
 
 class OccasionForm(ModelForm):
+
+    occasion_date = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'}))
+
     class Meta:
         model = Occasion
         fields = [
