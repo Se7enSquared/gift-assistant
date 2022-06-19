@@ -19,6 +19,7 @@ class Recipient(models.Model):
         ("Select", "Select"),
         ("Spouse", "Spouse"),
         ("Parent", "Parent"),
+        ("Child", "Child"),
         ("Sibling", "Sibling"),
         ("Friend", "Friend"),
         ("Grandparent", "Grandparent"),
@@ -34,12 +35,31 @@ class Recipient(models.Model):
         ("Non-Binary", "Non-Binary"),
     )
 
+    MONTHS = (
+        (1, "January"),
+        (2, "February"),
+        (3, "March"),
+        (4, "April"),
+        (5, "May"),
+        (6, "June"),
+        (7, "July"),
+        (8, "August"),
+        (9, "September"),
+        (10, "October"),
+        (11, "November"),
+        (12, "December")
+    )
+
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    birth_date = models.DateField(blank=True, null=True)
+    birth_month = models.IntegerField(choices=MONTHS, default=1)
+    birth_day = models.IntegerField(null=True, blank=True)
+    birth_year_unknown = models.BooleanField(default=False)
+    birth_year = models.IntegerField(null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True)
     email = models.EmailField(blank=True, null=True)
     relationship = models.CharField(
-        max_length=16, choices=RELATIONSHIP, default=SELECT)
+        max_length=16, choices=RELATIONSHIP, default=1)
     gender = models.CharField(max_length=10, choices=GENDER, default=SELECT)
     notes = models.TextField(blank=True, null=True)
     user = models.ForeignKey(
@@ -80,6 +100,7 @@ class Occasion(models.Model):
 
 
 class Gift(models.Model):
+
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
     gift_type = models.CharField(max_length=50)

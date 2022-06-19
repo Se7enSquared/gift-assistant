@@ -4,12 +4,21 @@ from .models import Occasion, Recipient, Gift
 
 
 class RecipientForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(RecipientForm, self).__init__(*args, **kwargs)
+        self.fields['age'].help_text = '(approximate age if unknown)'
+
     class Meta:
         model = Recipient
         fields = [
             "first_name",
             "last_name",
-            "birth_date",
+            "birth_month",
+            "birth_day",
+            "birth_year_unknown",
+            "birth_year",
+            "age",
             "email",
             "relationship",
             "gender",
