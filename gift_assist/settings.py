@@ -13,6 +13,9 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 ACCOUNT_LOGOUT_ON_GET = True
+BOOTSTRAP5 = {
+    'set_placeholder': False,
+    "theme_url": 'https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/spacelab/bootstrap.min.css', }
 
 # Application definition
 
