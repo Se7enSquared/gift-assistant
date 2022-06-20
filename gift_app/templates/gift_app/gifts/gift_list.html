@@ -1,8 +1,8 @@
 {% for gift in gifts %}
 <tr id="gift-{{ gift.pk }}" class="table-row">
     <td style="max-width: 150px; word-wrap: break-word;">{{gift.title}}</td>
-    <td style="max-width: 150px; word-wrap: break-word;">{{gift.recipient.first_name}} {{gift.recipient.last_name}}</td>
-    <td style="max-width: 150px; word-wrap: break-word;">{{gift.link}}</td>
+    <td style="max-width: 150px; word-wrap: break-word;">{{gift.occasion.recipient}}'s {{gift.occasion.occasion_type}}</td>
+    <td style="max-width: 150px; word-wrap: break-word;"><a href={{gift.link}}>Gift Link</a></td>
     <td style="max-width: 150px; word-wrap: break-word;">
         {% if gift.given == True %}Yes{%else%}No{% endif %}
     </td>
