@@ -1,6 +1,7 @@
 from cmath import e
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
+from django.db.models import Count
 
 
 from .models import Recipient, Gift, Occasion
@@ -27,7 +28,8 @@ def recipient_list(request):
 def recipient_view(request, pk):
     recipient = Recipient.objects.get(pk=pk)
     form = RecipientForm(request.GET)
-    return render(request, 'recipients/recipient_view.html', {'recipient': recipient, 'form': form})
+    return render(request, 'recipients/recipient_view.html',
+                  {'recipient': recipient, 'form': form})
 
 
 def recipient_add(request):
@@ -94,7 +96,7 @@ def occasion_view(request, pk):
     occasion = Occasion.objects.get(pk=pk)
     form = OccasionForm(request.GET)
     return render(request, 'occasions/occasion_view.html',
-                 {'occasion': occasion, 'form': form})
+                  {'occasion': occasion, 'form': form})
 
 
 def occasion_add(request):
@@ -144,9 +146,11 @@ def occasion_delete(request, pk):
                             headers={'HX-Trigger': 'occasionListChanged'})
     else:
         return render(request, 'occasions/occasion_delete.html',
-                     {'occasion': occasion})
+                      {'occasion': occasion})
 
 # G I F T  V I E W S ------------------------>
+
+
 def gifts(request):
     return render(request, 'gifts/gifts.html')
 
