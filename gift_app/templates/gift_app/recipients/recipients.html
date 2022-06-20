@@ -8,7 +8,7 @@
     <div id="dialog" class="modal-dialog" hx-target="this">
     </div>
 </div>
-<div class="col-md-8">
+<div class="col-md-6">
     <br><br><br><br>
     <button class="btn btn-primary" hx-get="{% url 'recipient_add' %}" hx-target="#dialog">
         Add
@@ -16,9 +16,9 @@
     <table class="table flex-wrapper" id="recipient_tbl">
         <thead>
             <tr>
-                <th scope="col" style="max-width: 150px; word-wrap: break-word;">First Name</th>
-                <th scope="col" style="max-width: 150px; word-wrap: break-word;">Last Name</th>
+                <th scope="col" style="max-width: 150px; word-wrap: break-word;">Name</th>
                 <th scope="col" style="max-width: 150px; word-wrap: break-word;">Relationship</th>
+                <th scope="col" style="max-width: 150px; word-wrap: break-word;">Occasion Count</th>
                 <th scope="col" style="max-width: 150px; word-wrap: break-word;">Actions</th>
             </tr>
         </thead>
