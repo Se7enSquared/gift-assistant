@@ -1,4 +1,3 @@
-from cmath import e
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Count
@@ -21,6 +20,7 @@ def recipients(request):
 
 def recipient_list(request):
     recipients = Recipient.objects.filter(user=request.user)
+    recipients = recipients.annotate(Count('occasion'))
     return render(request, 'recipients/recipient_list.html',
                   {'recipients': recipients})
 
@@ -47,7 +47,7 @@ def recipient_add(request):
 
 
 def recipient_edit(request, pk):
-    recipient = get_object_or_404(Recipient, pk=pk)
+    recipient = get_object_or_404(Recipient, pk=pk, user=request.user)
     if request.method == "POST":
         form = RecipientForm(request.POST, instance=recipient)
         context = {'form': form}
@@ -64,7 +64,7 @@ def recipient_edit(request, pk):
 
 
 def recipient_delete(request, pk):
-    recipient = get_object_or_404(Recipient, pk=pk)
+    recipient = get_object_or_404(Recipient, pk=pk, user=request.user)
 
     if request.method == 'POST':
         recipient.delete()
@@ -107,7 +107,7 @@ def occasion_add(request):
 
 
 def occasion_edit(request, pk):
-    occasion = get_object_or_404(Occasion, pk=pk)
+    occasion = get_object_or_404(Occasion, pk=pk, user=request.user)
     if request.method == "POST":
         form = OccasionForm(request.POST, instance=occasion)
         context = {'form': form}
@@ -124,7 +124,7 @@ def occasion_edit(request, pk):
 
 
 def occasion_delete(request, pk):
-    occasion = get_object_or_404(Occasion, pk=pk)
+    occasion = get_object_or_404(Occasion, pk=pk, user=request.user)
 
     if request.method == 'POST':
         occasion.delete()
@@ -169,7 +169,7 @@ def gift_add(request):
 
 
 def gift_edit(request, pk):
-    gift = get_object_or_404(Gift, pk=pk)
+    gift = get_object_or_404(Gift, pk=pk, user=request.user)
     if request.method == "POST":
         form = GiftForm(request.POST, instance=gift)
         context = {'form': form}
@@ -186,7 +186,7 @@ def gift_edit(request, pk):
 
 
 def gift_delete(request, pk):
-    gift = get_object_or_404(Gift, pk=pk)
+    gift = get_object_or_404(Gift, pk=pk, user=request.user)
 
     if request.method == 'POST':
         gift.delete()
