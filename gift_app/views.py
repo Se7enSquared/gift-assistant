@@ -19,8 +19,8 @@ def recipients(request):
 
 
 def recipient_list(request):
-    recipients = Recipient.objects.filter(user=request.user)
-    recipients = recipients.annotate(Count('occasion'))
+    recipients = Recipient.objects.filter(
+        user=request.user).annotate(Count('occasion'))
     return render(request, 'recipients/recipient_list.html',
                   {'recipients': recipients})
 
