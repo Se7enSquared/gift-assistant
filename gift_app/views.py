@@ -25,13 +25,6 @@ def recipient_list(request):
                   {'recipients': recipients})
 
 
-def recipient_view(request, pk):
-    recipient = Recipient.objects.get(pk=pk)
-    form = RecipientForm(request.GET)
-    return render(request, 'recipients/recipient_view.html',
-                  {'recipient': recipient, 'form': form})
-
-
 def recipient_add(request):
     recipients = Recipient.objects.filter(user=request.user)
     occasions = Occasion.objects.filter(user=request.user)
@@ -90,13 +83,6 @@ def occasion_list(request):
     occasions = Occasion.objects.filter(user=request.user)
     return render(request, 'occasions/occasion_list.html',
                   {'occasions': occasions})
-
-
-def occasion_view(request, pk):
-    occasion = Occasion.objects.get(pk=pk)
-    form = OccasionForm(request.GET)
-    return render(request, 'occasions/occasion_view.html',
-                  {'occasion': occasion, 'form': form})
 
 
 def occasion_add(request):
@@ -159,12 +145,6 @@ def gift_list(request):
     gifts = Gift.objects.filter(user=request.user)
     return render(request, 'gifts/gift_list.html',
                   {'gifts': gifts})
-
-
-def gift_view(request, pk):
-    gift = Gift.objects.get(pk=pk)
-    form = GiftForm(request.GET)
-    return render(request, 'gifts/gift_view.html', {'gift': gift, 'form': form})
 
 
 def gift_add(request):
