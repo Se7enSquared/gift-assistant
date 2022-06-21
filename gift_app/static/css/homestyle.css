@@ -4,8 +4,6 @@ body {
 }
 
 body {
-    display: flex;
-    flex-direction: column;
     padding-top: 20px;
     background: url('../img/ga-giftwoman.jpg');
     background-color: #cccccc;
@@ -36,8 +34,10 @@ footer {
 }
 
 #loginForm {
+    margin-top: 50px;
     padding: 50px;
-    margin: 0 10 0 10;
+    margin-left: auto;
+    margin-right: auto;
     width: 25%;
 }
 

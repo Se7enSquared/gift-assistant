@@ -2,15 +2,12 @@
 <tr id="occasion-{{ occasion.pk }}" class="table-row">
     <td style="max-width: 150px; word-wrap: break-word;">{{occasion.recipient.first_name}}
         {{occasion.recipient.last_name}}</td>
-    <td style="max-width: 150px; word-wrap: break-word;">{{occasion.name}}</td>
     <td style="max-width: 150px; word-wrap: break-word;">{{occasion.occasion_type}}</td>
     <td style="max-width: 150px; word-wrap: break-word;">{{occasion.occasion_date}}</td>
     <td style="max-width: 150px; word-wrap: break-word;">
-        <a href="#"><span class="iconify" data-icon="mdi:eye" data-width="24" data-height="24"
-                style="margin-right:2px"></span></a>
-        <a href="#"><span class="iconify" data-icon="ep:edit-pen" data-width="24" data-height="24"
-                style="margin-right:2px"></span></a>
-        <a href="#"><span class="iconify" data-icon="fluent:delete-16-regular" data-width="24"
+        <a hx-get="{% url 'occasion_edit' pk=occasion.pk %}" hx-target="#dialog"><span class="iconify text-primary"
+                data-icon="ep:edit-pen" data-width="24" data-height="24" style="margin-right:2px"></span></a>
+        <a hx-get="{% url 'occasion_delete' pk=occasion.pk %}" hx-target="#dialog"><span class="iconify text-primary" data-icon="fluent:delete-16-regular" data-width="24"
                 data-height="24"></span></a>
     </td>
 </tr>

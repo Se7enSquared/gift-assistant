@@ -19,6 +19,7 @@ class Recipient(models.Model):
         ("Select", "Select"),
         ("Spouse", "Spouse"),
         ("Parent", "Parent"),
+        ("Child", "Child"),
         ("Sibling", "Sibling"),
         ("Friend", "Friend"),
         ("Grandparent", "Grandparent"),
@@ -34,12 +35,32 @@ class Recipient(models.Model):
         ("Non-Binary", "Non-Binary"),
     )
 
+    MONTHS = (
+        (0, "Select"),
+        (1, "January"),
+        (2, "February"),
+        (3, "March"),
+        (4, "April"),
+        (5, "May"),
+        (6, "June"),
+        (7, "July"),
+        (8, "August"),
+        (9, "September"),
+        (10, "October"),
+        (11, "November"),
+        (12, "December")
+    )
+
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    birth_date = models.DateField(blank=True, null=True)
+    birth_month = models.IntegerField(choices=MONTHS, default=0)
+    birth_day = models.IntegerField(null=True, blank=True)
+    birth_year_unknown = models.BooleanField(default=False)
+    birth_year = models.IntegerField(null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True)
     email = models.EmailField(blank=True, null=True)
     relationship = models.CharField(
-        max_length=16, choices=RELATIONSHIP, default=SELECT)
+        max_length=16, choices=RELATIONSHIP, default=1)
     gender = models.CharField(max_length=10, choices=GENDER, default=SELECT)
     notes = models.TextField(blank=True, null=True)
     user = models.ForeignKey(
@@ -49,15 +70,39 @@ class Recipient(models.Model):
     )
 
     def __str__(self):
-        return f"{self.first_name} : {self.relationship}"
+        return f"{self.first_name} {self.last_name}"
 
     class Meta:
         ordering = ["last_name"]
 
 
 class Occasion(models.Model):
-    name = models.CharField(max_length=50)
-    occasion_type = models.CharField(max_length=50)
+
+    OCCASION_TYPES = (
+        ("Birthday", "Birthday"),
+        ("Wedding Anniversary", "Wedding Anniversary"),
+        ("Wedding Anniversary", "Dating Anniversary"),
+        ("Work Anniversary", "Work Anniversary"),
+        ("Friendship Anniversary", "Friendship Anniversary"),
+        ("Mother's Day", "Mother's Day"),
+        ("Father's Day", "Father's Day"),
+        ("Graduation", "Graduation"),
+        ("Baby Shower", "Baby Shower"),
+        ("New Baby", "New Baby"),
+        ("Wedding", "Wedding"),
+        ("House Warming", "House Warming"),
+        ("Thanks", "Thanks"),
+        ("Christmas", "Christmas"),
+        ("Easter", "Easter"),
+        ("Chinese New Year", "Chinese New Year"),
+        ("Valentine's Day", "Valentine's Day"),
+        ("Just Because", "Just Because"),
+        ("Other", "Other"),
+    )
+
+    occasion_type = models.CharField(max_length=50,
+                                     choices=OCCASION_TYPES,
+                                     default="BIRTHDAY")
     repeat_yearly = models.BooleanField(default=False)
     occasion_date = models.DateField()
     description = models.TextField(blank=True, null=True)
@@ -73,13 +118,14 @@ class Occasion(models.Model):
     )
 
     def __str__(self):
-        return f"{self.name} : {self.occasion_date}"
+        return f"{self.recipient}'s {self.occasion_type} | {self.occasion_date} "
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["recipient"]
 
 
 class Gift(models.Model):
+
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
     gift_type = models.CharField(max_length=50)
@@ -92,12 +138,6 @@ class Gift(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    recipient = models.ForeignKey(
-        Recipient,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-    )
     user = models.ForeignKey(
         User,
         null=True,
@@ -105,7 +145,7 @@ class Gift(models.Model):
     )
 
     def __str__(self):
-        return f"{self.title} : {self.link}"
+        return f"{self.title} | {self.link}"
 
     class Meta:
         ordering = ["title"]

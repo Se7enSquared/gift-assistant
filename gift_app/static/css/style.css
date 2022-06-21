@@ -6,6 +6,8 @@
     background: rgba(229, 231, 235, 0.75);
 }
 
-.flexbox-item {
-    display: flex;
+#loginForm{
+    padding-top: 50px;
+    margin: auto;
+    width: 20%;
 }
