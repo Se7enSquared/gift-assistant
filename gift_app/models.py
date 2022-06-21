@@ -102,7 +102,7 @@ class Occasion(models.Model):
 
     occasion_type = models.CharField(max_length=50,
                                      choices=OCCASION_TYPES,
-                                     default="BIRTHDAY")
+                                     default=OCCASION_TYPES[0][0])
     repeat_yearly = models.BooleanField(default=False)
     occasion_date = models.DateField()
     description = models.TextField(blank=True, null=True)
