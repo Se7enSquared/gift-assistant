@@ -30,8 +30,6 @@ def recipient_add(request):
     occasions = Occasion.objects.filter(user=request.user)
     if request.method == "POST":
         form = RecipientForm(request.POST)
-        context = {'form': form, 'recipients': recipients,
-                   'occasions': occasions}
         if form.is_valid():
             recipient = form.save(commit=False)
             recipient.user = request.user
@@ -40,9 +38,9 @@ def recipient_add(request):
                                 headers={'HX-Trigger': 'recipientListChanged'})
     else:
         form = RecipientForm()
-        context = {'form': form, 'recipients': recipients,
-                   'occasions': occasions}
 
+    context = {'form': form, 'recipients': recipients,
+                'occasions': occasions}
     return render(request, 'recipients/recipient_form.html', context)
 
 
@@ -50,7 +48,6 @@ def recipient_edit(request, pk):
     recipient = get_object_or_404(Recipient, pk=pk, user=request.user)
     if request.method == "POST":
         form = RecipientForm(request.POST, instance=recipient)
-        context = {'form': form}
         if form.is_valid():
             recipient = form.save(commit=False)
             recipient.user = request.user
@@ -59,7 +56,8 @@ def recipient_edit(request, pk):
                                 headers={'HX-Trigger': 'recipientListChanged'})
     else:
         form = RecipientForm(instance=recipient)
-        context = {'form': form}
+
+    context = {'form': form}
     return render(request, 'recipients/recipient_edit.html', context)
 
 
@@ -90,8 +88,6 @@ def occasion_add(request):
     occasions = Occasion.objects.filter(user=request.user)
     if request.method == "POST":
         form = OccasionForm(request.POST)
-        context = {'form': form, 'occasions': occasions,
-                   'occasions': occasions}
         if form.is_valid():
             occasion = form.save(commit=False)
             occasion.user = request.user
@@ -100,9 +96,9 @@ def occasion_add(request):
                                 headers={'HX-Trigger': 'occasionListChanged'})
     else:
         form = OccasionForm()
-        context = {'form': form, 'occasions': occasions,
-                   'occasions': occasions}
 
+    context = {'form': form, 'occasions': occasions,
+                'occasions': occasions}
     return render(request, 'occasions/occasion_form.html', context)
 
 
@@ -110,7 +106,6 @@ def occasion_edit(request, pk):
     occasion = get_object_or_404(Occasion, pk=pk, user=request.user)
     if request.method == "POST":
         form = OccasionForm(request.POST, instance=occasion)
-        context = {'form': form}
         if form.is_valid():
             occasion = form.save(commit=False)
             occasion.user = request.user
@@ -119,7 +114,8 @@ def occasion_edit(request, pk):
                                 headers={'HX-Trigger': 'occasionListChanged'})
     else:
         form = OccasionForm(instance=occasion)
-        context = {'form': form}
+
+    context = {'form': form}
     return render(request, 'occasions/occasion_edit.html', context)
 
 
@@ -152,8 +148,6 @@ def gift_add(request):
     occasions = Occasion.objects.filter(user=request.user)
     if request.method == "POST":
         form = GiftForm(request.POST)
-        context = {'form': form, 'recipients': recipients,
-                   'occasions': occasions}
         if form.is_valid():
             gift = form.save(commit=False)
             gift.user = request.user
@@ -162,9 +156,9 @@ def gift_add(request):
                                 headers={'HX-Trigger': 'giftListChanged'})
     else:
         form = GiftForm()
-        context = {'form': form, 'recipients': recipients,
-                   'occasions': occasions}
 
+    context = {'form': form, 'recipients': recipients,
+                'occasions': occasions}
     return render(request, 'gifts/gift_form.html', context)
 
 
@@ -172,7 +166,6 @@ def gift_edit(request, pk):
     gift = get_object_or_404(Gift, pk=pk, user=request.user)
     if request.method == "POST":
         form = GiftForm(request.POST, instance=gift)
-        context = {'form': form}
         if form.is_valid():
             gift = form.save(commit=False)
             gift.user = request.user
@@ -181,7 +174,8 @@ def gift_edit(request, pk):
                                 headers={'HX-Trigger': 'giftListChanged'})
     else:
         form = GiftForm(instance=gift)
-        context = {'form': form}
+
+    context = {'form': form}
     return render(request, 'gifts/gift_edit.html', context)
 
 
