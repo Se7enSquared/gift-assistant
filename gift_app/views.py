@@ -25,6 +25,17 @@ def recipient_list(request):
                   {'recipients': recipients})
 
 
+def _process_occasions(recipient):  # sourcery skip
+    if recipient.relationship == 'Parent' and recipient.gender == 'Male':
+        pass  # add father's day
+
+    if recipient.relationship == 'Parent' and recipient.gender == 'Female':
+        pass  # add mother's day
+
+    if recipient.birth_month > 0 and recipient.birth_day > 0:
+        pass  # add recipient birthday
+
+
 def recipient_add(request):
     recipients = Recipient.objects.filter(user=request.user)
     occasions = Occasion.objects.filter(user=request.user)
@@ -34,13 +45,14 @@ def recipient_add(request):
             recipient = form.save(commit=False)
             recipient.user = request.user
             recipient.save()
+            _process_occasions(recipient)
             return HttpResponse(status=204,
                                 headers={'HX-Trigger': 'recipientListChanged'})
     else:
         form = RecipientForm()
 
     context = {'form': form, 'recipients': recipients,
-                'occasions': occasions}
+               'occasions': occasions}
     return render(request, 'recipients/recipient_form.html', context)
 
 
@@ -98,7 +110,7 @@ def occasion_add(request):
         form = OccasionForm()
 
     context = {'form': form, 'occasions': occasions,
-                'occasions': occasions}
+               'occasions': occasions}
     return render(request, 'occasions/occasion_form.html', context)
 
 
@@ -158,7 +170,7 @@ def gift_add(request):
         form = GiftForm()
 
     context = {'form': form, 'recipients': recipients,
-                'occasions': occasions}
+               'occasions': occasions}
     return render(request, 'gifts/gift_form.html', context)
 
 
