@@ -1,4 +1,3 @@
-from cmath import e
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Count
@@ -20,16 +19,21 @@ def recipients(request):
 
 
 def recipient_list(request):
-    recipients = Recipient.objects.filter(user=request.user)
+    recipients = Recipient.objects.filter(
+        user=request.user).annotate(Count('occasion'))
     return render(request, 'recipients/recipient_list.html',
                   {'recipients': recipients})
 
 
-def recipient_view(request, pk):
-    recipient = Recipient.objects.get(pk=pk)
-    form = RecipientForm(request.GET)
-    return render(request, 'recipients/recipient_view.html',
-                  {'recipient': recipient, 'form': form})
+def _process_occasions(recipient):  # sourcery skip
+    if recipient.relationship == 'Parent' and recipient.gender == 'Male':
+        pass  # add father's day
+
+    if recipient.relationship == 'Parent' and recipient.gender == 'Female':
+        pass  # add mother's day
+
+    if recipient.birth_month > 0 and recipient.birth_day > 0:
+        pass  # add recipient birthday
 
 
 def recipient_add(request):
@@ -37,27 +41,25 @@ def recipient_add(request):
     occasions = Occasion.objects.filter(user=request.user)
     if request.method == "POST":
         form = RecipientForm(request.POST)
-        context = {'form': form, 'recipients': recipients,
-                   'occasions': occasions}
         if form.is_valid():
             recipient = form.save(commit=False)
             recipient.user = request.user
             recipient.save()
+            _process_occasions(recipient)
             return HttpResponse(status=204,
                                 headers={'HX-Trigger': 'recipientListChanged'})
     else:
         form = RecipientForm()
-        context = {'form': form, 'recipients': recipients,
-                   'occasions': occasions}
 
+    context = {'form': form, 'recipients': recipients,
+               'occasions': occasions}
     return render(request, 'recipients/recipient_form.html', context)
 
 
 def recipient_edit(request, pk):
-    recipient = get_object_or_404(Recipient, pk=pk)
+    recipient = get_object_or_404(Recipient, pk=pk, user=request.user)
     if request.method == "POST":
         form = RecipientForm(request.POST, instance=recipient)
-        context = {'form': form}
         if form.is_valid():
             recipient = form.save(commit=False)
             recipient.user = request.user
@@ -66,12 +68,13 @@ def recipient_edit(request, pk):
                                 headers={'HX-Trigger': 'recipientListChanged'})
     else:
         form = RecipientForm(instance=recipient)
-        context = {'form': form}
+
+    context = {'form': form}
     return render(request, 'recipients/recipient_edit.html', context)
 
 
 def recipient_delete(request, pk):
-    recipient = get_object_or_404(Recipient, pk=pk)
+    recipient = get_object_or_404(Recipient, pk=pk, user=request.user)
 
     if request.method == 'POST':
         recipient.delete()
@@ -92,20 +95,11 @@ def occasion_list(request):
                   {'occasions': occasions})
 
 
-def occasion_view(request, pk):
-    occasion = Occasion.objects.get(pk=pk)
-    form = OccasionForm(request.GET)
-    return render(request, 'occasions/occasion_view.html',
-                  {'occasion': occasion, 'form': form})
-
-
 def occasion_add(request):
     occasions = Occasion.objects.filter(user=request.user)
     occasions = Occasion.objects.filter(user=request.user)
     if request.method == "POST":
         form = OccasionForm(request.POST)
-        context = {'form': form, 'occasions': occasions,
-                   'occasions': occasions}
         if form.is_valid():
             occasion = form.save(commit=False)
             occasion.user = request.user
@@ -114,17 +108,16 @@ def occasion_add(request):
                                 headers={'HX-Trigger': 'occasionListChanged'})
     else:
         form = OccasionForm()
-        context = {'form': form, 'occasions': occasions,
-                   'occasions': occasions}
 
+    context = {'form': form, 'occasions': occasions,
+               'occasions': occasions}
     return render(request, 'occasions/occasion_form.html', context)
 
 
 def occasion_edit(request, pk):
-    occasion = get_object_or_404(Occasion, pk=pk)
+    occasion = get_object_or_404(Occasion, pk=pk, user=request.user)
     if request.method == "POST":
         form = OccasionForm(request.POST, instance=occasion)
-        context = {'form': form}
         if form.is_valid():
             occasion = form.save(commit=False)
             occasion.user = request.user
@@ -133,12 +126,13 @@ def occasion_edit(request, pk):
                                 headers={'HX-Trigger': 'occasionListChanged'})
     else:
         form = OccasionForm(instance=occasion)
-        context = {'form': form}
+
+    context = {'form': form}
     return render(request, 'occasions/occasion_edit.html', context)
 
 
 def occasion_delete(request, pk):
-    occasion = get_object_or_404(Occasion, pk=pk)
+    occasion = get_object_or_404(Occasion, pk=pk, user=request.user)
 
     if request.method == 'POST':
         occasion.delete()
@@ -161,19 +155,11 @@ def gift_list(request):
                   {'gifts': gifts})
 
 
-def gift_view(request, pk):
-    gift = Gift.objects.get(pk=pk)
-    form = GiftForm(request.GET)
-    return render(request, 'gifts/gift_view.html', {'gift': gift, 'form': form})
-
-
 def gift_add(request):
     recipients = Recipient.objects.filter(user=request.user)
     occasions = Occasion.objects.filter(user=request.user)
     if request.method == "POST":
         form = GiftForm(request.POST)
-        context = {'form': form, 'recipients': recipients,
-                   'occasions': occasions}
         if form.is_valid():
             gift = form.save(commit=False)
             gift.user = request.user
@@ -182,17 +168,16 @@ def gift_add(request):
                                 headers={'HX-Trigger': 'giftListChanged'})
     else:
         form = GiftForm()
-        context = {'form': form, 'recipients': recipients,
-                   'occasions': occasions}
 
+    context = {'form': form, 'recipients': recipients,
+               'occasions': occasions}
     return render(request, 'gifts/gift_form.html', context)
 
 
 def gift_edit(request, pk):
-    gift = get_object_or_404(Gift, pk=pk)
+    gift = get_object_or_404(Gift, pk=pk, user=request.user)
     if request.method == "POST":
         form = GiftForm(request.POST, instance=gift)
-        context = {'form': form}
         if form.is_valid():
             gift = form.save(commit=False)
             gift.user = request.user
@@ -201,12 +186,13 @@ def gift_edit(request, pk):
                                 headers={'HX-Trigger': 'giftListChanged'})
     else:
         form = GiftForm(instance=gift)
-        context = {'form': form}
+
+    context = {'form': form}
     return render(request, 'gifts/gift_edit.html', context)
 
 
 def gift_delete(request, pk):
-    gift = get_object_or_404(Gift, pk=pk)
+    gift = get_object_or_404(Gift, pk=pk, user=request.user)
 
     if request.method == 'POST':
         gift.delete()

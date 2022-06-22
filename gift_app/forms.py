@@ -6,7 +6,7 @@ from .models import Occasion, Recipient, Gift
 class RecipientForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
-        super(RecipientForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['age'].help_text = '(approximate age if unknown)'
 
     class Meta:
