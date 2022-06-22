@@ -11,3 +11,29 @@
     margin: auto;
     width: 20%;
 }
+
+#sidebar{
+    width: 200px;
+    height: calc(100vh - 50px);
+}
+
+form ul {
+    list-style: none;
+}
+
+form ul li {
+    list-style: none;
+}
+
+tr td{
+   max-width: 100px;
+   word-wrap: break-word;
+}
+
+.editbutton{
+    margin-right: 5px;
+}
+
+#occasioncount{
+    padding-left: 40px;
+}

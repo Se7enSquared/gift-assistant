@@ -5,7 +5,7 @@
 <form hx-post="{{ request.path }}" class="modal-content">
     <ul style='list-style: none;' }>
         {% for key, value in form.errors.items %}
-        <li style="list-style: none;">{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}</li>
+        <li >{% if key != '__all__' %}{{ key }} {% endif %}{{ value }}</li>
         {% endfor %}
     </ul>
     <div class="modal-header">

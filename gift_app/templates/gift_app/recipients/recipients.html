@@ -16,10 +16,10 @@
     <table class="table flex-wrapper" id="recipient_tbl">
         <thead>
             <tr>
-                <th scope="col" style="max-width: 150px; word-wrap: break-word;">Name</th>
-                <th scope="col" style="max-width: 150px; word-wrap: break-word;">Relationship</th>
-                <th scope="col" style="max-width: 150px; word-wrap: break-word;">Occasions</th>
-                <th scope="col" style="max-width: 150px; word-wrap: break-word;">Actions</th>
+                <th scope="col" >Name</th>
+                <th scope="col" >Relationship</th>
+                <th scope="col" >Occasions</th>
+                <th scope="col" >Actions</th>
             </tr>
         </thead>
         <tbody hx-trigger="load, recipientListChanged from:body" hx-get="{% url 'recipient_list' %}" hx-target="this">

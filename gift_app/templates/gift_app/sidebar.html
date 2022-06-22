@@ -1,9 +1,10 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% if user.is_authenticated %}
 {% load active_link_tags %}
         <div class="col-md-3">
-            <nav id="sidebar" class="space-top">
-                <div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white"
-                    style="width: 200px; height: calc(100vh - 50px);)">
+            <nav class="space-top">
+                <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white">
                     <a href="/"
                         class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-black text-decoration-none">
                         <span class="fs-4">Gift Assistant</span>
