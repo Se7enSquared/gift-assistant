@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Count
-
+from gift_app.occasions import MOTHERS_DAY, FATHERS_DAY, get_upcoming_date, get_nth_weekday, process_occasions
 
 from .models import Recipient, Gift, Occasion
 from .forms import RecipientForm, OccasionForm, GiftForm
@@ -25,17 +25,6 @@ def recipient_list(request):
                   {'recipients': recipients})
 
 
-def _process_occasions(recipient):  # sourcery skip
-    if recipient.relationship == 'Parent' and recipient.gender == 'Male':
-        pass  # add father's day
-
-    if recipient.relationship == 'Parent' and recipient.gender == 'Female':
-        pass  # add mother's day
-
-    if recipient.birth_month > 0 and recipient.birth_day > 0:
-        pass  # add recipient birthday
-
-
 def recipient_add(request):
     recipients = Recipient.objects.filter(user=request.user)
     occasions = Occasion.objects.filter(user=request.user)
@@ -45,7 +34,7 @@ def recipient_add(request):
             recipient = form.save(commit=False)
             recipient.user = request.user
             recipient.save()
-            _process_occasions(recipient)
+            process_occasions(request, recipient)
             return HttpResponse(status=204,
                                 headers={'HX-Trigger': 'recipientListChanged'})
     else:
