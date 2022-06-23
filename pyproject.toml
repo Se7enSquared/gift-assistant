@@ -13,6 +13,7 @@ python-decouple = "^3.6"
 django-allauth = "^0.51.0"
 django-active-link = "^0.1.8"
 django-bootstrap-v5 = "^1.0.11"
+holidays = "^0.14.2"
 
 [tool.poetry.dev-dependencies]
 
