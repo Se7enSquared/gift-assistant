@@ -34,9 +34,22 @@ def get_upcoming_date(holiday):
     current_holidays = holidays.UnitedStates(years=CURRENT_YEAR)
 
     if holiday == MOTHERS_DAY:
-        return get_nth_weekday(CURRENT_YEAR, SECOND, SUNDAY, MAY)
+        mothers_day_date = get_nth_weekday(CURRENT_YEAR, SECOND, SUNDAY, MAY)
+
+        # if holiday is in the past get the next year's date
+        if mothers_day_date < date.today():
+            return get_nth_weekday(CURRENT_YEAR + 1, SECOND, SUNDAY, MAY)
+        else:
+            return get_nth_weekday(CURRENT_YEAR, SECOND, SUNDAY, MAY)
+
     if holiday == FATHERS_DAY:
-        return get_nth_weekday(CURRENT_YEAR, THIRD, SUNDAY, JUNE)
+        fathers_day_date = get_nth_weekday(CURRENT_YEAR, THIRD, SUNDAY, JUNE)
+
+        # if holiday is in the past get the next year's date
+        if fathers_day_date < date.today():
+            return get_nth_weekday(CURRENT_YEAR + 1, THIRD, SUNDAY, JUNE)
+        else:
+            return get_nth_weekday(CURRENT_YEAR, THIRD, SUNDAY, JUNE)
 
 
 def auto_add_occasion(occasion, recipient, request):
