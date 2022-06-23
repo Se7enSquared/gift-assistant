@@ -16,6 +16,7 @@ JUNE = 6
 SECOND = 2
 THIRD = 3
 
+
 class AutomateOccasions():
     def __init__(self, recipient) -> None:
         self.recipient = recipient
@@ -36,20 +37,24 @@ class AutomateOccasions():
         current_holidays = holidays.UnitedStates(years=CURRENT_YEAR)
 
         if holiday == MOTHERS_DAY:
-            mothers_day_date = self.get_nth_weekday(CURRENT_YEAR, SECOND, SUNDAY, MAY)
+            mothers_day_date = self.get_nth_weekday(
+                CURRENT_YEAR, SECOND, SUNDAY, MAY)
 
             # if holiday is in the past get the next year's date
             if mothers_day_date < date.today():
-                return self.get_nth_weekday(CURRENT_YEAR + 1, SECOND, SUNDAY, MAY)
+                return self.get_nth_weekday(CURRENT_YEAR + 1, SECOND, SUNDAY,
+                                            MAY)
             else:
                 return self.get_nth_weekday(CURRENT_YEAR, SECOND, SUNDAY, MAY)
 
         if holiday == FATHERS_DAY:
-            fathers_day_date = self.get_nth_weekday(CURRENT_YEAR, THIRD, SUNDAY, JUNE)
+            fathers_day_date = self.get_nth_weekday(CURRENT_YEAR, THIRD,
+                                                    SUNDAY, JUNE)
 
             # if holiday is in the past get the next year's date
             if fathers_day_date < date.today():
-                return self.get_nth_weekday(CURRENT_YEAR + 1, THIRD, SUNDAY, JUNE)
+                return self.get_nth_weekday(CURRENT_YEAR + 1, THIRD, SUNDAY,
+                                            JUNE)
             else:
                 return self.get_nth_weekday(CURRENT_YEAR, THIRD, SUNDAY, JUNE)
 
@@ -65,10 +70,12 @@ class AutomateOccasions():
         )
 
     def _is_mother(self):
-        return self.recipient.relationship == PARENT and self.recipient.gender == FEMALE
+        return self.recipient.relationship == PARENT \
+            and self.recipient.gender == FEMALE
 
     def _is_father(self):
-        return self.recipient.relationship == PARENT and self.recipient.gender == MALE
+        return self.recipient.relationship == PARENT \
+            and self.recipient.gender == MALE
 
     def process_occasions(self):
         '''Add occasions automatically for certain recipients
