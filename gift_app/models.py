@@ -78,7 +78,7 @@ class Occasion(models.Model):
     OCCASION_TYPES = (
         ("Birthday", "Birthday"),
         ("Wedding Anniversary", "Wedding Anniversary"),
-        ("Wedding Anniversary", "Dating Anniversary"),
+        ("Dating Anniversary", "Dating Anniversary"),
         ("Work Anniversary", "Work Anniversary"),
         ("Friendship Anniversary", "Friendship Anniversary"),
         ("Mother's Day", "Mother's Day"),
