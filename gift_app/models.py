@@ -113,7 +113,7 @@ class Occasion(models.Model):
     )
 
     def __str__(self):
-        return f"{self.recipient.first_name} {self.recipient.last_name}'s \
+        return f"{self.recipient}'s \
                 {self.occasion_type} | {self.occasion_date}"
 
     class Meta:
