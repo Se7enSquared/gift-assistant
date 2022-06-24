@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Count
 from gift_app.occasions import AutomateOccasions
+from gift_app.recipients import ValidateRecipient
 
 from .models import Recipient, Gift, Occasion
 from .forms import RecipientForm, OccasionForm, GiftForm
@@ -30,9 +31,12 @@ def recipient_add(request):
     occasions = Occasion.objects.filter(user=request.user)
     if request.method == "POST":
         form = RecipientForm(request.POST)
+
         if form.is_valid():
             recipient = form.save(commit=False)
             recipient.user = request.user
+            recipient_validation = ValidateRecipient(recipient)
+            recipient_validation.validate()
             recipient.save()
             auto_occasion = AutomateOccasions(recipient)
             auto_occasion.process_occasions()
@@ -66,12 +70,11 @@ def recipient_edit(request, pk):
 def recipient_delete(request, pk):
     recipient = get_object_or_404(Recipient, pk=pk, user=request.user)
 
-    if request.method == 'POST':
-        recipient.delete()
-        return HttpResponse(status=204,
-                            headers={'HX-Trigger': 'recipientListChanged'})
-    else:
+    if request.method != 'POST':
         return render(request, 'recipients/recipient_delete.html', {'recipient': recipient})
+    recipient.delete()
+    return HttpResponse(status=204,
+                        headers={'HX-Trigger': 'recipientListChanged'})
 
 
 # O C C A S I O N  V I E W S ------------------------>
@@ -124,13 +127,12 @@ def occasion_edit(request, pk):
 def occasion_delete(request, pk):
     occasion = get_object_or_404(Occasion, pk=pk, user=request.user)
 
-    if request.method == 'POST':
-        occasion.delete()
-        return HttpResponse(status=204,
-                            headers={'HX-Trigger': 'occasionListChanged'})
-    else:
+    if request.method != 'POST':
         return render(request, 'occasions/occasion_delete.html',
                       {'occasion': occasion})
+    occasion.delete()
+    return HttpResponse(status=204,
+                        headers={'HX-Trigger': 'occasionListChanged'})
 
 # G I F T  V I E W S ------------------------>
 
@@ -184,9 +186,8 @@ def gift_edit(request, pk):
 def gift_delete(request, pk):
     gift = get_object_or_404(Gift, pk=pk, user=request.user)
 
-    if request.method == 'POST':
-        gift.delete()
-        return HttpResponse(status=204,
-                            headers={'HX-Trigger': 'giftListChanged'})
-    else:
+    if request.method != 'POST':
         return render(request, 'gifts/gift_delete.html', {'gift': gift})
+    gift.delete()
+    return HttpResponse(status=204,
+                        headers={'HX-Trigger': 'giftListChanged'})
