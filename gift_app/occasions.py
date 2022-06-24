@@ -42,21 +42,23 @@ class AutomateOccasions():
 
             # if holiday is in the past get the next year's date
             if mothers_day_date < date.today():
-                return self.get_nth_weekday(CURRENT_YEAR + 1, SECOND, SUNDAY,
-                                            MAY)
+                return self.get_nth_weekday(
+                    CURRENT_YEAR + 1, SECOND, SUNDAY, MAY)
             else:
-                return self.get_nth_weekday(CURRENT_YEAR, SECOND, SUNDAY, MAY)
+                return self.get_nth_weekday(
+                    CURRENT_YEAR, SECOND, SUNDAY, MAY)
 
         if holiday == FATHERS_DAY:
-            fathers_day_date = self.get_nth_weekday(CURRENT_YEAR, THIRD,
-                                                    SUNDAY, JUNE)
+            fathers_day_date = self.get_nth_weekday(
+                CURRENT_YEAR, THIRD, SUNDAY, JUNE)
 
             # if holiday is in the past get the next year's date
             if fathers_day_date < date.today():
-                return self.get_nth_weekday(CURRENT_YEAR + 1, THIRD, SUNDAY,
-                                            JUNE)
+                return self.get_nth_weekday(
+                    CURRENT_YEAR + 1, THIRD, SUNDAY, JUNE)
             else:
-                return self.get_nth_weekday(CURRENT_YEAR, THIRD, SUNDAY, JUNE)
+                return self.get_nth_weekday(
+                    CURRENT_YEAR, THIRD, SUNDAY, JUNE)
 
     def auto_add_occasion(self, holiday):
         Occasion.objects.create(
@@ -69,10 +71,12 @@ class AutomateOccasions():
             user=self.recipient.user
         )
 
+    @property
     def _is_mother(self):
         return self.recipient.relationship == PARENT \
             and self.recipient.gender == FEMALE
 
+    @property
     def _is_father(self):
         return self.recipient.relationship == PARENT \
             and self.recipient.gender == MALE
@@ -81,11 +85,8 @@ class AutomateOccasions():
         '''Add occasions automatically for certain recipients
         based on information given in the recipient form'''
 
-        if self._is_mother():
+        if self._is_mother:
             self.auto_add_occasion(MOTHERS_DAY)
 
-        elif self._is_father():
+        elif self._is_father:
             self.auto_add_occasion(FATHERS_DAY)
-
-        if self.recipient.birth_month > 0 and self.recipient.birth_day > 0:
-            pass  # add recipient birthday
