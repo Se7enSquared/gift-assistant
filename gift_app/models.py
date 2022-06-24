@@ -13,6 +13,7 @@ class Profile(models.Model):
 class Recipient(models.Model):
 
     RELATIONSHIP = (
+        ("Select", "Select"),
         ("Other", "Other"),
         ("Spouse", "Spouse"),
         ("Parent", "Parent"),
@@ -79,21 +80,9 @@ class Occasion(models.Model):
         ("Wedding Anniversary", "Wedding Anniversary"),
         ("Dating Anniversary", "Dating Anniversary"),
         ("Work Anniversary", "Work Anniversary"),
-        ("Friendship Anniversary", "Friendship Anniversary"),
         ("Mother's Day", "Mother's Day"),
         ("Father's Day", "Father's Day"),
-        ("Graduation", "Graduation"),
-        ("Baby Shower", "Baby Shower"),
-        ("New Baby", "New Baby"),
-        ("Wedding", "Wedding"),
-        ("House Warming", "House Warming"),
-        ("Thanks", "Thanks"),
-        ("Christmas", "Christmas"),
-        ("Easter", "Easter"),
-        ("Chinese New Year", "Chinese New Year"),
         ("Valentine's Day", "Valentine's Day"),
-        ("Just Because", "Just Because"),
-        ("Other", "Other"),
     )
 
     occasion_type = models.CharField(max_length=50, choices=OCCASION_TYPES,

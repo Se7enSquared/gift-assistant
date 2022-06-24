@@ -1,6 +1,5 @@
 from datetime import date
 import calendar
-import holidays
 
 from .models import Occasion
 
@@ -34,7 +33,6 @@ class AutomateOccasions():
 
     def get_upcoming_date(self, holiday):
         '''Get the next date for the given holiday'''
-        current_holidays = holidays.UnitedStates(years=CURRENT_YEAR)
 
         if holiday == MOTHERS_DAY:
             mothers_day_date = self.get_nth_weekday(
