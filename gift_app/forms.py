@@ -19,7 +19,6 @@ class RecipientForm(ModelForm):
             "birth_year_unknown",
             "birth_year",
             "age",
-            "email",
             "relationship",
             "gender",
             "notes",
