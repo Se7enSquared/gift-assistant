@@ -17,7 +17,7 @@ THIRD = 3
 
 
 class AutomateOccasions():
-    def __init__(self, recipient) -> None:
+    def __init__(self, recipient: object):
         self.recipient = recipient
 
     def get_nth_weekday(self, year: int, n: int, weekday: int, month: int) -> date:
@@ -31,7 +31,7 @@ class AutomateOccasions():
                 if n == count:
                     return today
 
-    def get_upcoming_date(self, holiday):
+    def get_upcoming_date(self, holiday: str) -> date:
         '''Get the next date for the given holiday'''
 
         if holiday == MOTHERS_DAY:
@@ -58,7 +58,7 @@ class AutomateOccasions():
                 return self.get_nth_weekday(
                     CURRENT_YEAR, THIRD, SUNDAY, JUNE)
 
-    def auto_add_occasion(self, holiday):
+    def auto_add_occasion(self, holiday: str):
         Occasion.objects.create(
             occasion_type=holiday,
             repeat_yearly=True,
@@ -70,21 +70,21 @@ class AutomateOccasions():
         )
 
     @property
-    def _is_mother(self):
-        return self.recipient.relationship == PARENT \
-            and self.recipient.gender == FEMALE
+    def is_mother(self):
+        return (self.recipient.relationship == PARENT
+                and self.recipient.gender == FEMALE)
 
     @property
-    def _is_father(self):
-        return self.recipient.relationship == PARENT \
-            and self.recipient.gender == MALE
+    def is_father(self):
+        return (self.recipient.relationship == PARENT
+                and self.recipient.gender == MALE)
 
     def process_occasions(self):
         '''Add occasions automatically for certain recipients
         based on information given in the recipient form'''
 
-        if self._is_mother:
+        if self.is_mother:
             self.auto_add_occasion(MOTHERS_DAY)
 
-        elif self._is_father:
+        elif self.is_father:
             self.auto_add_occasion(FATHERS_DAY)
