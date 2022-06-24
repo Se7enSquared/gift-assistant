@@ -2,9 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-SELECT = "select"
-
-
 class Profile(models.Model):
     user = models.OneToOneField(
         User,
@@ -25,7 +22,7 @@ class Recipient(models.Model):
         ("Grandparent", "Grandparent"),
         ("Cousin", "Cousin"),
         ("Coworker", "Coworker"),
-        ("Other", "Other")
+        ("Other", "Other"),
     )
 
     GENDER = (
@@ -48,7 +45,7 @@ class Recipient(models.Model):
         (9, "September"),
         (10, "October"),
         (11, "November"),
-        (12, "December")
+        (12, "December"),
     )
 
     first_name = models.CharField(max_length=50)
@@ -58,16 +55,18 @@ class Recipient(models.Model):
     birth_year_unknown = models.BooleanField(default=False)
     birth_year = models.IntegerField(null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
-    email = models.EmailField(blank=True, null=True)
     relationship = models.CharField(
-        max_length=16, choices=RELATIONSHIP, default=1)
-    gender = models.CharField(max_length=10, choices=GENDER, default=SELECT)
+        max_length=16, choices=RELATIONSHIP, default=RELATIONSHIP[0][0])
+    gender = models.CharField(max_length=10, choices=GENDER,
+                              default=GENDER[0][0])
     notes = models.TextField(blank=True, null=True)
     user = models.ForeignKey(
         User,
         null=True,
         on_delete=models.SET_NULL,
     )
+    inferred_relationship = models.CharField(
+        max_length=50, blank=True, null=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -81,27 +80,14 @@ class Occasion(models.Model):
     OCCASION_TYPES = (
         ("Birthday", "Birthday"),
         ("Wedding Anniversary", "Wedding Anniversary"),
-        ("Wedding Anniversary", "Dating Anniversary"),
+        ("Dating Anniversary", "Dating Anniversary"),
         ("Work Anniversary", "Work Anniversary"),
-        ("Friendship Anniversary", "Friendship Anniversary"),
         ("Mother's Day", "Mother's Day"),
         ("Father's Day", "Father's Day"),
-        ("Graduation", "Graduation"),
-        ("Baby Shower", "Baby Shower"),
-        ("New Baby", "New Baby"),
-        ("Wedding", "Wedding"),
-        ("House Warming", "House Warming"),
-        ("Thanks", "Thanks"),
-        ("Christmas", "Christmas"),
-        ("Easter", "Easter"),
-        ("Chinese New Year", "Chinese New Year"),
         ("Valentine's Day", "Valentine's Day"),
-        ("Just Because", "Just Because"),
-        ("Other", "Other"),
     )
 
-    occasion_type = models.CharField(max_length=50,
-                                     choices=OCCASION_TYPES,
+    occasion_type = models.CharField(max_length=50, choices=OCCASION_TYPES,
                                      default=OCCASION_TYPES[0][0])
     repeat_yearly = models.BooleanField(default=False)
     occasion_date = models.DateField()
@@ -118,10 +104,11 @@ class Occasion(models.Model):
     )
 
     def __str__(self):
-        return f"{self.recipient}'s {self.occasion_type} | {self.occasion_date} "
+        return (f"{self.recipient}'s"
+                f"{self.occasion_type} | {self.occasion_date}")
 
     class Meta:
-        ordering = ["recipient"]
+        ordering = ["recipient__last_name"]
 
 
 class Gift(models.Model):

@@ -1,3 +1,4 @@
+import re
 from django import forms
 from django.forms import ModelForm
 from .models import Occasion, Recipient, Gift
@@ -19,7 +20,6 @@ class RecipientForm(ModelForm):
             "birth_year_unknown",
             "birth_year",
             "age",
-            "email",
             "relationship",
             "gender",
             "notes",
@@ -29,7 +29,7 @@ class RecipientForm(ModelForm):
 class OccasionForm(ModelForm):
 
     occasion_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'}))
+        widget=forms.DateInput(attrs={'type': 'date'}), required=False)
 
     class Meta:
         model = Occasion
@@ -44,7 +44,8 @@ class OccasionForm(ModelForm):
 
 class GiftForm(ModelForm):
     date_given = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'}))
+        widget=forms.DateInput(attrs={'type': 'date'}), required=False)
+
     class Meta:
         model = Gift
         fields = [
