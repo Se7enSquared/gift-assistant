@@ -45,6 +45,7 @@ class OccasionForm(ModelForm):
 class GiftForm(ModelForm):
     date_given = forms.DateField(
         widget=forms.DateInput(attrs={'type': 'date'}))
+
     class Meta:
         model = Gift
         fields = [
