@@ -2,9 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-SELECT = "select"
-
-
 class Profile(models.Model):
     user = models.OneToOneField(
         User,
@@ -16,7 +13,7 @@ class Profile(models.Model):
 class Recipient(models.Model):
 
     RELATIONSHIP = (
-        ("Select", "Select"),
+        ("Other", "Other"),
         ("Spouse", "Spouse"),
         ("Parent", "Parent"),
         ("Child", "Child"),
@@ -25,7 +22,6 @@ class Recipient(models.Model):
         ("Grandparent", "Grandparent"),
         ("Cousin", "Cousin"),
         ("Coworker", "Coworker"),
-        ("Other", "Other")
     )
 
     GENDER = (
@@ -48,7 +44,7 @@ class Recipient(models.Model):
         (9, "September"),
         (10, "October"),
         (11, "November"),
-        (12, "December")
+        (12, "December"),
     )
 
     first_name = models.CharField(max_length=50)
@@ -60,8 +56,9 @@ class Recipient(models.Model):
     age = models.IntegerField(null=True, blank=True)
     email = models.EmailField(blank=True, null=True)
     relationship = models.CharField(
-        max_length=16, choices=RELATIONSHIP, default=1)
-    gender = models.CharField(max_length=10, choices=GENDER, default=SELECT)
+        max_length=16, choices=RELATIONSHIP, default=RELATIONSHIP[0][0])
+    gender = models.CharField(max_length=10, choices=GENDER,
+                              default=GENDER[0][0])
     notes = models.TextField(blank=True, null=True)
     user = models.ForeignKey(
         User,
@@ -100,8 +97,7 @@ class Occasion(models.Model):
         ("Other", "Other"),
     )
 
-    occasion_type = models.CharField(max_length=50,
-                                     choices=OCCASION_TYPES,
+    occasion_type = models.CharField(max_length=50, choices=OCCASION_TYPES,
                                      default=OCCASION_TYPES[0][0])
     repeat_yearly = models.BooleanField(default=False)
     occasion_date = models.DateField()
@@ -118,10 +114,11 @@ class Occasion(models.Model):
     )
 
     def __str__(self):
-        return f"{self.recipient}'s {self.occasion_type} | {self.occasion_date} "
+        return f"{self.recipient.first_name} {self.recipient.last_name}'s \
+                {self.occasion_type} | {self.occasion_date}"
 
     class Meta:
-        ordering = ["recipient"]
+        ordering = ["recipient__last_name"]
 
 
 class Gift(models.Model):
