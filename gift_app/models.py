@@ -1,3 +1,4 @@
+from telnetlib import BINARY
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -11,28 +12,81 @@ class Profile(models.Model):
 
 
 class Recipient(models.Model):
+    SELECT = 'Select'
 
-    RELATIONSHIP = (
-        ("Select", "Select"),
-        ("Spouse", "Spouse"),
-        ("Parent", "Parent"),
-        ("Child", "Child"),
-        ("Sibling", "Sibling"),
-        ("Friend", "Friend"),
-        ("Grandparent", "Grandparent"),
-        ("Cousin", "Cousin"),
-        ("Coworker", "Coworker"),
-        ("Other", "Other"),
+    FEMALE = 'Female'
+    MALE = 'Male'
+    NON_BINARY = 'Non-binary'
+
+    WIFE = 'Wife'
+    MOTHER = 'Mother'
+    GRANDMOTHER = 'Grandmother'
+    GIRLFRIEND = 'Girlfriend'
+    DAUGHTER = 'Daughter'
+    SISTER = 'Sister'
+    AUNT = 'Aunt'
+
+    HUSBAND = 'Husband'
+    FATHER = 'Father'
+    GRANDFATHER = 'Grandfather'
+    BOYFRIEND = 'Boyfriend'
+    SON = 'Son'
+    BROTHER = 'Brother'
+    UNCLE = 'Uncle'
+
+    FIANCE = 'Fiance'
+    FRIEND = 'Friend'
+    COUSIN = 'Cousin'
+    COWORKER = 'Coworker'
+    OTHER = 'Other'
+
+    FEMALE_RELATIONSHIPS = (
+        (SELECT, 'Select'),
+        (WIFE, 'Wife'),
+        (MOTHER, 'Mother'),
+        (GRANDMOTHER, 'Grandmother'),
+        (FIANCE, 'Fiance'),
+        (GIRLFRIEND, 'Girlfriend'),
+        (DAUGHTER, 'Daughter'),
+        (SISTER, 'Sister'),
+        (AUNT, 'Aunt'),
+        (FRIEND, 'Friend'),
+        (COUSIN, 'Cousin'),
+        (COWORKER, 'Coworker'),
+        (OTHER, 'Other')
     )
 
-    GENDER = (
-        ("Select", "Select"),
-        ("Female", "Female"),
-        ("Male", "Male"),
-        ("Non-Binary", "Non-Binary"),
+    MALE_RELATIONSHIPS = (
+        (SELECT, 'Select'),
+        (HUSBAND, 'Husband'),
+        (FATHER, 'Father'),
+        (GRANDFATHER, 'Grandfather'),
+        (FIANCE, 'Fiance'),
+        (BOYFRIEND, 'Boyfriend'),
+        (SON, 'Son'),
+        (BROTHER, 'Brother'),
+        (UNCLE, 'Uncle'),
+        (FRIEND, 'Friend'),
+        (COUSIN, 'Cousin'),
+        (COWORKER, 'Coworker'),
+        (OTHER, 'Other')
     )
+    NON_BINARY_RELATIONSHIPS = tuple(
+        set(FEMALE_RELATIONSHIPS + MALE_RELATIONSHIPS))
 
-    MONTHS = (
+    GENDERS = [
+        (FEMALE, FEMALE),
+        (MALE, MALE),
+        (NON_BINARY, NON_BINARY)
+    ]
+
+    GENDER_RELATIONSHIPS = {
+        FEMALE: FEMALE_RELATIONSHIPS,
+        MALE: MALE_RELATIONSHIPS,
+        NON_BINARY: NON_BINARY_RELATIONSHIPS
+    }
+
+    MONTHS = [
         (0, "Select"),
         (1, "January"),
         (2, "February"),
@@ -46,7 +100,7 @@ class Recipient(models.Model):
         (10, "October"),
         (11, "November"),
         (12, "December"),
-    )
+    ]
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -55,10 +109,11 @@ class Recipient(models.Model):
     birth_year_unknown = models.BooleanField(default=False)
     birth_year = models.IntegerField(null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=GENDERS,
+                              default=GENDERS[0][0])
     relationship = models.CharField(
-        max_length=16, choices=RELATIONSHIP, default=RELATIONSHIP[0][0])
-    gender = models.CharField(max_length=10, choices=GENDER,
-                              default=GENDER[0][0])
+        max_length=16, choices=FEMALE_RELATIONSHIPS,
+        default=FEMALE_RELATIONSHIPS[0][0])
     notes = models.TextField(blank=True, null=True)
     user = models.ForeignKey(
         User,
