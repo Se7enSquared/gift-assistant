@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 import calendar
 
 from .models import Occasion
@@ -14,6 +14,7 @@ MAY = 5
 JUNE = 6
 SECOND = 2
 THIRD = 3
+FIRST = 1
 
 
 class AutomateOccasions():
@@ -21,15 +22,16 @@ class AutomateOccasions():
         self.recipient = recipient
 
     def get_nth_weekday(self, year: int, n: int, weekday: int, month: int) -> date:
-        daysInMonth = calendar.monthrange(year, month)[1]
-        count = 0
-        for day in range(1, daysInMonth):
-            today = date(year, month, day)
-            today_weekday = today.weekday()
-            if today_weekday == weekday:
-                count += 1
-                if n == count:
-                    return today
+        first_of_the_month = date(year, month, FIRST)
+        first_weekday = first_of_the_month.weekday()
+        if first_weekday != weekday:
+            days_to_add = 6 - first_weekday
+            first_weekday_date = (first_of_the_month +
+                                  timedelta(days=days_to_add))
+        else:
+            first_weekday_date = first_of_the_month
+
+        return first_weekday_date + timedelta(days=7 * (n - 1))
 
     def get_upcoming_date(self, holiday: str) -> date:
         '''Get the next date for the given holiday'''
@@ -59,6 +61,7 @@ class AutomateOccasions():
                     CURRENT_YEAR, THIRD, SUNDAY, JUNE)
 
     def auto_add_occasion(self, holiday: str):
+        '''Add an occasion for the given holiday'''
         Occasion.objects.create(
             occasion_type=holiday,
             repeat_yearly=True,
