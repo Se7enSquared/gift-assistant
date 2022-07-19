@@ -134,8 +134,8 @@ def occasion_delete(request, pk):
     return HttpResponse(status=204,
                         headers={'HX-Trigger': 'occasionListChanged'})
 
-# G I F T  V I E W S ------------------------>
 
+# G I F T  V I E W S ------------------------>
 
 def gifts(request):
     return render(request, 'gifts/gifts.html')
