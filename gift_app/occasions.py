@@ -8,10 +8,6 @@ FATHERS_DAY = 'Father\'s Day'
 PARENT = 'Parent'
 MALE = 'Male'
 FEMALE = 'Female'
-# TODO: Because of this, use freeze gun for testing (see slack)
-# Or add year as a constructor argument for Automate Occasions
-# year = None (if you don't give it, defaults to current year)
-# self.year = year or CURRENT_YEAR
 CURRENT_YEAR = date.today().year
 SUNDAY = 6
 MAY = 5
@@ -23,6 +19,7 @@ THIRD = 3
 class AutomateOccasions():
     def __init__(self, recipient, year=None) -> None:
         self.recipient = recipient
+        self.year = year or CURRENT_YEAR
 
     def get_nth_weekday(self, year: int, n: int, weekday: int, month: int) -> date:
         daysInMonth = calendar.monthrange(year, month)[1]
