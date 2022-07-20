@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Count
 from gift_app.occasions import AutomateOccasions
@@ -8,25 +8,25 @@ from .models import Recipient, Gift, Occasion
 from .forms import RecipientForm, OccasionForm, GiftForm
 
 
-def home(request):
+def home(request: HttpRequest):
     if request.user.is_authenticated:
         return render(request, 'welcome.html')
     return render(request, 'home.html')
 
 
 # R E C I P I E N T  V I E W S ------------------------>
-def recipients(request):
+def recipients(request: HttpRequest):
     return render(request, 'recipients/recipients.html')
 
 
-def recipient_list(request):
+def recipient_list(request: HttpRequest):
     recipients = Recipient.objects.filter(
         user=request.user).annotate(Count('occasion'))
     return render(request, 'recipients/recipient_list.html',
                   {'recipients': recipients})
 
 
-def recipient_add(request):
+def recipient_add(request: HttpRequest):
     recipients = Recipient.objects.filter(user=request.user)
     occasions = Occasion.objects.filter(user=request.user)
     if request.method == "POST":
@@ -50,7 +50,7 @@ def recipient_add(request):
     return render(request, 'recipients/recipient_form.html', context)
 
 
-def recipient_edit(request, pk):
+def recipient_edit(request: HttpRequest, pk: int) -> HttpResponse:
     recipient = get_object_or_404(Recipient, pk=pk, user=request.user)
     if request.method == "POST":
         form = RecipientForm(request.POST, instance=recipient)
@@ -67,7 +67,7 @@ def recipient_edit(request, pk):
     return render(request, 'recipients/recipient_edit.html', context)
 
 
-def recipient_delete(request, pk):
+def recipient_delete(request: HttpRequest, pk: int) -> HttpResponse:
     recipient = get_object_or_404(Recipient, pk=pk, user=request.user)
 
     if request.method != 'POST':
@@ -78,17 +78,17 @@ def recipient_delete(request, pk):
 
 
 # O C C A S I O N  V I E W S ------------------------>
-def occasions(request):
+def occasions(request: HttpRequest) -> HttpResponse:
     return render(request, 'occasions/occasions.html')
 
 
-def occasion_list(request):
+def occasion_list(request: HttpRequest) -> HttpResponse:
     occasions = Occasion.objects.filter(user=request.user)
     return render(request, 'occasions/occasion_list.html',
                   {'occasions': occasions})
 
 
-def occasion_add(request):
+def occasion_add(request: HttpRequest) -> HttpResponse:
     occasions = Occasion.objects.filter(user=request.user)
     occasions = Occasion.objects.filter(user=request.user)
     if request.method == "POST":
@@ -107,7 +107,7 @@ def occasion_add(request):
     return render(request, 'occasions/occasion_form.html', context)
 
 
-def occasion_edit(request, pk):
+def occasion_edit(request: HttpRequest, pk: int) -> HttpResponse:
     occasion = get_object_or_404(Occasion, pk=pk, user=request.user)
     if request.method == "POST":
         form = OccasionForm(request.POST, instance=occasion)
@@ -124,7 +124,7 @@ def occasion_edit(request, pk):
     return render(request, 'occasions/occasion_edit.html', context)
 
 
-def occasion_delete(request, pk):
+def occasion_delete(request: HttpRequest, pk: int) -> HttpResponse:
     occasion = get_object_or_404(Occasion, pk=pk, user=request.user)
 
     if request.method != 'POST':
@@ -137,17 +137,17 @@ def occasion_delete(request, pk):
 
 # G I F T  V I E W S ------------------------>
 
-def gifts(request):
+def gifts(request: HttpRequest) -> HttpResponse:
     return render(request, 'gifts/gifts.html')
 
 
-def gift_list(request):
+def gift_list(request: HttpRequest) -> HttpResponse:
     gifts = Gift.objects.filter(user=request.user)
     return render(request, 'gifts/gift_list.html',
                   {'gifts': gifts})
 
 
-def gift_add(request):
+def gift_add(request: HttpRequest) -> HttpResponse:
     recipients = Recipient.objects.filter(user=request.user)
     occasions = Occasion.objects.filter(user=request.user)
     if request.method == "POST":
@@ -166,7 +166,7 @@ def gift_add(request):
     return render(request, 'gifts/gift_form.html', context)
 
 
-def gift_edit(request, pk):
+def gift_edit(request: HttpRequest, pk: int) -> HttpResponse:
     gift = get_object_or_404(Gift, pk=pk, user=request.user)
     if request.method == "POST":
         form = GiftForm(request.POST, instance=gift)
@@ -183,7 +183,7 @@ def gift_edit(request, pk):
     return render(request, 'gifts/gift_edit.html', context)
 
 
-def gift_delete(request, pk):
+def gift_delete(request: HttpRequest, pk: int) -> HttpResponse:
     gift = get_object_or_404(Gift, pk=pk, user=request.user)
 
     if request.method != 'POST':

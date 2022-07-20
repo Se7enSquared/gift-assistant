@@ -14,7 +14,6 @@ class Recipient(models.Model):
 
     RELATIONSHIP = (
         ("Select", "Select"),
-        ("Other", "Other"),
         ("Spouse", "Spouse"),
         ("Parent", "Parent"),
         ("Child", "Child"),
@@ -23,6 +22,7 @@ class Recipient(models.Model):
         ("Grandparent", "Grandparent"),
         ("Cousin", "Cousin"),
         ("Coworker", "Coworker"),
+        ("Other", "Other"),
     )
 
     GENDER = (
@@ -65,6 +65,8 @@ class Recipient(models.Model):
         null=True,
         on_delete=models.SET_NULL,
     )
+    inferred_relationship = models.CharField(
+        max_length=50, blank=True, null=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -102,8 +104,8 @@ class Occasion(models.Model):
     )
 
     def __str__(self):
-        return f"{self.recipient}'s \
-                {self.occasion_type} | {self.occasion_date}"
+        return (f"{self.recipient}'s"
+                f"{self.occasion_type} | {self.occasion_date}")
 
     class Meta:
         ordering = ["recipient__last_name"]
