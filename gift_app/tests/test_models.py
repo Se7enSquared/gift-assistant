@@ -23,6 +23,5 @@ class RecipientTestCase(TestCase):
     # Test Scenarios:
     # Adding a mother & a father - add mothers & fathers's days
     # Set a fixed datetime for testing
-
     # Other ToDo:
     # Automatically add birthday occasions
