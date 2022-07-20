@@ -17,8 +17,9 @@ THIRD = 3
 
 
 class AutomateOccasions():
-    def __init__(self, recipient: object):
+    def __init__(self, recipient, year=None) -> None:
         self.recipient = recipient
+        self.year = year or CURRENT_YEAR
 
     def get_nth_weekday(self, year: int, n: int, weekday: int, month: int) -> date:
         daysInMonth = calendar.monthrange(year, month)[1]
