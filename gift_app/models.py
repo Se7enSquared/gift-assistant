@@ -48,6 +48,8 @@ class Recipient(models.Model):
         (12, "December"),
     )
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     birth_month = models.IntegerField(choices=MONTHS, default=0)
@@ -65,8 +67,8 @@ class Recipient(models.Model):
         null=True,
         on_delete=models.SET_NULL,
     )
-    inferred_relationship = models.CharField(
-        max_length=50, blank=True, null=True)
+    # inferred_relationship = models.CharField(
+    #     max_length=50, blank=True, null=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -87,6 +89,8 @@ class Occasion(models.Model):
         ("Valentine's Day", "Valentine's Day"),
     )
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     occasion_type = models.CharField(max_length=50, choices=OCCASION_TYPES,
                                      default=OCCASION_TYPES[0][0])
     repeat_yearly = models.BooleanField(default=False)
@@ -112,7 +116,8 @@ class Occasion(models.Model):
 
 
 class Gift(models.Model):
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
     gift_type = models.CharField(max_length=50)
