@@ -10,7 +10,7 @@ MAX_AGE = 120
 
 class ValidateRecipient():
 
-    def __init__(self, recipient: object):
+    def __init__(self, recipient: Recipient):
         self.recipient = recipient
 
     def validate(self):

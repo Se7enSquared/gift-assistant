@@ -1,8 +1,10 @@
-# this will hold the logic for inferring relationships
+
+from gift_app.models import Recipient
+
 
 class Relationships():
 
-    def __init__(self, recipient: object):
+    def __init__(self, recipient: Recipient):
         self.recipient = recipient
 
     @property
