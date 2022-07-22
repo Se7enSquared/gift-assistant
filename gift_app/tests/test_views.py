@@ -19,6 +19,17 @@ class TestRecipientViews(TestCase):
         user.save()
         self.client.login(username='testuser', password='12345')
 
+        self.mother_data = {
+            'first_name': 'test_first',
+            'last_name': 'test_last',
+            'birth_month': 5,
+            'birth_day': 4,
+            'birth_year': 1966,
+            'age': 0,
+            'relationship': 'Parent',
+            'gender': 'Female'
+        }
+
         self.mother = Recipient.objects.create(
             first_name='test recipient first',
             last_name='test recipient last',
@@ -45,14 +56,13 @@ class TestRecipientViews(TestCase):
         self.assertTemplateUsed(response,
                                 'recipients/recipient_list.html')
 
-# TODO: need to add a recipient through the view. Adding during setup is not
-#       to trigger the auto occasion.
-#       Bob will send example form data
     def test_auto_occasion_added(self):
-        self.client.post()
+        self.client.post(self.recipient_add_url, data=self.mother_data)
+        occasions_list = Occasion.objects.all()
         exists = any(
-            occ.recipient == self.mother
-            for occ in self.occasions_list
+            f'{occ.recipient.first_name} {occ.recipient.last_name}' ==
+            'test_first test_last'
+            for occ in occasions_list
         )
         self.assertEqual(exists, True)
 
