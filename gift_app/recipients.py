@@ -21,9 +21,6 @@ class ValidateRecipient():
     def validate_birthday(self):
         birth_year = self.recipient.birth_year
 
-        if self.recipient.birth_month < 1 or self.recipient.birth_month > 12:
-            raise forms.ValidationError('Invalid birth month')
-        # TODO: Use datetime module
         if self.recipient.birth_day < 1 or self.recipient.birth_day > 31:
             raise forms.ValidationError('Invalid birth day')
         if birth_year and (birth_year < MIN_YEAR or birth_year > date.today().year):
@@ -32,6 +29,8 @@ class ValidateRecipient():
                                         f'and {date.today.year()}')
 
     def validate_age(self):
+        if self.recipient.age is None:
+            self.recipient.age = 0
         if self.recipient.age < 0:
             raise forms.ValidationError('Age must be a positive integer')
         if self.recipient.age > 120:
