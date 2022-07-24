@@ -23,4 +23,11 @@ class Relationships():
     def is_husband(self):
         pass
 
+    def is_sister(self):
+        pass
+
+    def is_brother(self):
+        pass
+
+
     # logic for finding mother, father, sister, brother, son, daughter
