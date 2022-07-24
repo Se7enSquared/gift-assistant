@@ -16,6 +16,8 @@ class Recipient(models.Model):
         ("Select", "Select"),
         ("Spouse", "Spouse"),
         ("Parent", "Parent"),
+        ("Aunt", "Aunt"),
+        ("Uncle", "Uncle"),
         ("Child", "Child"),
         ("Sibling", "Sibling"),
         ("Friend", "Friend"),
