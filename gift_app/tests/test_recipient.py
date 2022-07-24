@@ -84,9 +84,7 @@ class TestRecipientViews(TestCase):
         )
         self.assertTrue(exists)
 
-    # QUESTION: Need help with this. I am getting a 404 error :()
     def test_recipient_edit(self):
-        pk = self.mother_object.id
         response = self.client.post(self.recipient_edit_url,
                                     data=self.edit_data)
         self.assertEqual(response.status_code, 204)
