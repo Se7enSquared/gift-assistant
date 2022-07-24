@@ -12,6 +12,7 @@ class TestRecipientViews(TestCase):
         self.recipient_url = reverse('recipients')
         self.recipient_list_url = reverse('recipient_list')
         self.recipient_add_url = reverse('recipient_add')
+        self.recipient_edit_url = reverse('recipient_edit', args=[1])
 
         self.client = Client()
         user = User.objects.create(username='testuser')
@@ -37,7 +38,7 @@ class TestRecipientViews(TestCase):
             'birth_day': 3,
             'birth_year': 1980,
             'age': 17,
-            'relationship': 'Sister',
+            'relationship': 'Child',
             'gender': 'Female'
         }
 
@@ -70,7 +71,8 @@ class TestRecipientViews(TestCase):
             birth_day=3,
             birth_year=1960,
             relationship='Parent',
-            gender='Female'
+            gender='Female',
+            user=user
         )
 
     def test_recipient_POST(self):
@@ -85,16 +87,14 @@ class TestRecipientViews(TestCase):
     # QUESTION: Need help with this. I am getting a 404 error :()
     def test_recipient_edit(self):
         pk = self.mother_object.id
-        response = self.client.post(f'recipients/{pk}/edit',
+        response = self.client.post(self.recipient_edit_url,
                                     data=self.edit_data)
         self.assertEqual(response.status_code, 204)
 
-        recipients = Recipient.objects.all()
-        exists = any(
-            recipient.first_name == 'edit_first'
-            for recipient in recipients
-        )
-        self.assertTrue(exists)
+        recipient = Recipient.objects.first()
+        self.assertEqual(recipient.first_name, 'edit_first')
+        self.assertEqual(recipient.last_name, 'edit_last')
+        self.assertEqual(recipient.relationship, 'Child')
 
     def test_recipients_GET(self):  # sourcery skip: class-extract-method
         response = self.client.get(self.recipient_url)
