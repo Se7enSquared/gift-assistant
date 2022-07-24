@@ -1,3 +1,4 @@
+import datetime
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -69,8 +70,16 @@ class Recipient(models.Model):
         null=True,
         on_delete=models.SET_NULL,
     )
-    # inferred_relationship = models.CharField(
-    #     max_length=50, blank=True, null=True)
+
+    @property
+    def calculate_age(self):
+        if self.birth_year is None:
+            return None
+        birthday = datetime(
+            self.birth_year, self.birth_month, self.birth_day)
+        today = datetime.now()
+        return today.year - birthday.year - ((today.month, today.day) <
+                                             (birthday.month, birthday.day))
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
