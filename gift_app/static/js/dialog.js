@@ -16,6 +16,10 @@ htmx.on("htmx:afterSwap", (e) => {
           birthYearWrapper.hide();
       }
     });
+
+    // TODO: add listener on birth year field (#id_birth_year) here that, if filled out, makes
+    // an Ajax call to an endpoint that calculates the age (you already have a property for this)
+    // and then populates the age field (#id_age) with the result
   }
 })
 
