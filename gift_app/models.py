@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -71,15 +71,12 @@ class Recipient(models.Model):
         on_delete=models.SET_NULL,
     )
 
-    @property
-    def calculate_age(self):
-        if self.birth_year is None:
-            return None
-        birthday = datetime(
-            self.birth_year, self.birth_month, self.birth_day)
-        today = datetime.now()
-        return today.year - birthday.year - ((today.month, today.day) <
-                                             (birthday.month, birthday.day))
+    @staticmethod
+    def calculate_age(year, month, day):
+        birthday = datetime(int(year), int(month), int(day))
+        now = datetime.now()
+        had_birthday_this_year = (now.month, now.day) < (birthday.month, birthday.day)
+        return now.year - birthday.year - had_birthday_this_year
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
