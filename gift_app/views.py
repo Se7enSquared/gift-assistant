@@ -1,4 +1,4 @@
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Count
 from gift_app.occasions import AutomateOccasions
@@ -191,3 +191,8 @@ def gift_delete(request: HttpRequest, pk: int) -> HttpResponse:
     gift.delete()
     return HttpResponse(status=204,
                         headers={'HX-Trigger': 'giftListChanged'})
+
+
+def calculate_age(request, year, month, day):
+    age = Recipient.calculate_age(year, month, day)
+    return JsonResponse({"age": age})
