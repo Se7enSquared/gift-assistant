@@ -10,6 +10,7 @@
     <div class="modal-body">
         {% csrf_token %}
         {% bootstrap_form form layout='horizontal' %}
+        <p>{{ form.errors.recipient }}</p>
     </div>
     {% buttons %}
     <div class="modal-footer">

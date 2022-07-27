@@ -22,7 +22,7 @@ class ValidateRecipient():
         birth_year = self.recipient.birth_year
 
         if self.recipient.birth_day < 1 or self.recipient.birth_day > 31:
-            raise forms.ValidationError('Invalid birth day')
+            raise forms.ValidationError(('Invalid birth day'), code='invalid_birth_day')
         if birth_year and (birth_year < MIN_YEAR or birth_year > date.today().year):
             raise forms.ValidationError('Year must be an integer'
                                         f'between {MIN_YEAR}'
@@ -30,7 +30,7 @@ class ValidateRecipient():
 
     def validate_age(self):
         if self.recipient.age is None:
-            self.recipient.age = 0
+            raise forms.ValidationError('Age is required')
         if self.recipient.age < 0:
             raise forms.ValidationError('Age must be a positive integer')
         if self.recipient.age > 120:

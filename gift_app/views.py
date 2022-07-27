@@ -29,6 +29,7 @@ def recipient_list(request: HttpRequest):
 def recipient_add(request: HttpRequest):
     recipients = Recipient.objects.filter(user=request.user)
     occasions = Occasion.objects.filter(user=request.user)
+
     if request.method == "POST":
         form = RecipientForm(request.POST)
 
@@ -42,6 +43,11 @@ def recipient_add(request: HttpRequest):
             auto_occasion.process_occasions()
             return HttpResponse(status=204,
                                 headers={'HX-Trigger': 'recipientListChanged'})
+        else:
+            context = {'form': form, 'recipients': recipients,
+                       'occasions': occasions}
+            return render(request, 'recipients/recipient_form.html',
+                          {'form': form, 'recipients': recipients, 'occasions': occasions})
     else:
         form = RecipientForm()
 

@@ -8,7 +8,7 @@ htmx.on("htmx:afterSwap", (e) => {
 
     let birthYearWrapper = document.getElementById('id_birth_year').parentNode.parentNode;
 
-    // only display year field if known
+    // if birth year unknown, hide the birth year box
     document.getElementById('id_birth_year_unknown').onchange = function() {
       birthYearWrapper.style.display = this.checked ? 'none' : 'flex';
     };
@@ -19,7 +19,6 @@ htmx.on("htmx:afterSwap", (e) => {
       let birthDay = document.getElementById('id_birth_day').value;
       let birthYear = document.getElementById('id_birth_year').value;
 
-      // JS got f-strings :)
       let ageEndpoint = `/calculate_age/${birthYear}/${birthMonth}/${birthDay}`;
       fetch(ageEndpoint).then(function (response) {
         return response.json();
@@ -30,7 +29,6 @@ htmx.on("htmx:afterSwap", (e) => {
         console.warn('Something went wrong.', err);
       });
     }
-
   }
 })
 
