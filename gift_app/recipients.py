@@ -14,7 +14,8 @@ class ValidateRecipient():
         self.recipient = recipient
 
     def validate(self):
-        self.validate_birthday()
+        if self.validate_birthday()[0]:
+            return self.validate_birthday()[1]
         self.validate_age()
         self.is_not_duplicate()
 
@@ -22,7 +23,7 @@ class ValidateRecipient():
         birth_year = self.recipient.birth_year
 
         if self.recipient.birth_day < 1 or self.recipient.birth_day > 31:
-            raise forms.ValidationError(('Invalid birth day'), code='invalid_birth_day')
+            return (True, 'Birthday must be between 1 and 31')
         if birth_year and (birth_year < MIN_YEAR or birth_year > date.today().year):
             raise forms.ValidationError('Year must be an integer'
                                         f'between {MIN_YEAR}'

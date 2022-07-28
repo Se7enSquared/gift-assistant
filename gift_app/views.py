@@ -1,3 +1,4 @@
+from django import forms
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Count
@@ -37,7 +38,8 @@ def recipient_add(request: HttpRequest):
             recipient = form.save(commit=False)
             recipient.user = request.user
             recipient_validation = ValidateRecipient(recipient)
-            recipient_validation.validate()
+            if validation := recipient_validation.validate():
+                raise forms.ValidationError(validation)
             recipient.save()
             auto_occasion = AutomateOccasions(recipient)
             auto_occasion.process_occasions()
