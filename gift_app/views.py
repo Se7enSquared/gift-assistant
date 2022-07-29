@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.db.models import Count
 from gift_app.occasions import AutomateOccasions
 from gift_app.recipients import ValidateRecipient
+from django.contrib.auth.decorators import login_required
 
 from .models import Recipient, Gift, Occasion
 from .forms import RecipientForm, OccasionForm, GiftForm
@@ -15,10 +16,12 @@ def home(request: HttpRequest):
 
 
 # R E C I P I E N T  V I E W S ------------------------>
+@login_required
 def recipients(request: HttpRequest):
     return render(request, 'recipients/recipients.html')
 
 
+@login_required
 def recipient_list(request: HttpRequest):
     recipients = Recipient.objects.filter(
         user=request.user).annotate(Count('occasion'))
@@ -26,6 +29,7 @@ def recipient_list(request: HttpRequest):
                   {'recipients': recipients})
 
 
+@login_required
 def recipient_add(request: HttpRequest):
     recipients = Recipient.objects.filter(user=request.user)
     occasions = Occasion.objects.filter(user=request.user)
@@ -56,6 +60,7 @@ def recipient_add(request: HttpRequest):
     return render(request, 'recipients/recipient_form.html', context)
 
 
+@login_required
 def recipient_edit(request: HttpRequest, pk: int) -> HttpResponse:
     recipient = get_object_or_404(Recipient, pk=pk, user=request.user)
     if request.method == "POST":
@@ -73,6 +78,7 @@ def recipient_edit(request: HttpRequest, pk: int) -> HttpResponse:
     return render(request, 'recipients/recipient_edit.html', context)
 
 
+@login_required
 def recipient_delete(request: HttpRequest, pk: int) -> HttpResponse:
     recipient = get_object_or_404(Recipient, pk=pk, user=request.user)
 
@@ -84,16 +90,19 @@ def recipient_delete(request: HttpRequest, pk: int) -> HttpResponse:
 
 
 # O C C A S I O N  V I E W S ------------------------>
+@login_required
 def occasions(request: HttpRequest) -> HttpResponse:
     return render(request, 'occasions/occasions.html')
 
 
+@login_required
 def occasion_list(request: HttpRequest) -> HttpResponse:
     occasions = Occasion.objects.filter(user=request.user)
     return render(request, 'occasions/occasion_list.html',
                   {'occasions': occasions})
 
 
+@login_required
 def occasion_add(request: HttpRequest) -> HttpResponse:
     occasions = Occasion.objects.filter(user=request.user)
     occasions = Occasion.objects.filter(user=request.user)
@@ -113,6 +122,7 @@ def occasion_add(request: HttpRequest) -> HttpResponse:
     return render(request, 'occasions/occasion_form.html', context)
 
 
+@login_required
 def occasion_edit(request: HttpRequest, pk: int) -> HttpResponse:
     occasion = get_object_or_404(Occasion, pk=pk, user=request.user)
     if request.method == "POST":
@@ -130,6 +140,7 @@ def occasion_edit(request: HttpRequest, pk: int) -> HttpResponse:
     return render(request, 'occasions/occasion_edit.html', context)
 
 
+@login_required
 def occasion_delete(request: HttpRequest, pk: int) -> HttpResponse:
     occasion = get_object_or_404(Occasion, pk=pk, user=request.user)
 
@@ -143,16 +154,19 @@ def occasion_delete(request: HttpRequest, pk: int) -> HttpResponse:
 
 # G I F T  V I E W S ------------------------>
 
+@login_required
 def gifts(request: HttpRequest) -> HttpResponse:
     return render(request, 'gifts/gifts.html')
 
 
+@login_required
 def gift_list(request: HttpRequest) -> HttpResponse:
     gifts = Gift.objects.filter(user=request.user)
     return render(request, 'gifts/gift_list.html',
                   {'gifts': gifts})
 
 
+@login_required
 def gift_add(request: HttpRequest) -> HttpResponse:
     recipients = Recipient.objects.filter(user=request.user)
     occasions = Occasion.objects.filter(user=request.user)
@@ -172,6 +186,7 @@ def gift_add(request: HttpRequest) -> HttpResponse:
     return render(request, 'gifts/gift_form.html', context)
 
 
+@login_required
 def gift_edit(request: HttpRequest, pk: int) -> HttpResponse:
     gift = get_object_or_404(Gift, pk=pk, user=request.user)
     if request.method == "POST":
@@ -189,6 +204,7 @@ def gift_edit(request: HttpRequest, pk: int) -> HttpResponse:
     return render(request, 'gifts/gift_edit.html', context)
 
 
+@login_required
 def gift_delete(request: HttpRequest, pk: int) -> HttpResponse:
     gift = get_object_or_404(Gift, pk=pk, user=request.user)
 
@@ -199,6 +215,7 @@ def gift_delete(request: HttpRequest, pk: int) -> HttpResponse:
                         headers={'HX-Trigger': 'giftListChanged'})
 
 
+@login_required
 def calculate_age(request, year, month, day):
     age = Recipient.calculate_age(year, month, day)
     return JsonResponse({"age": age})
