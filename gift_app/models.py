@@ -59,7 +59,7 @@ class Recipient(models.Model):
     birth_day = models.IntegerField(null=True, blank=True)
     birth_year_unknown = models.BooleanField(default=False)
     birth_year = models.IntegerField(null=True, blank=True)
-    age = models.IntegerField(null=True, blank=True)
+    age = models.IntegerField()
     relationship = models.CharField(
         max_length=16, choices=RELATIONSHIP, default=RELATIONSHIP[0][0])
     gender = models.CharField(max_length=10, choices=GENDER,
