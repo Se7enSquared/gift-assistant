@@ -5,10 +5,12 @@ from .models import Occasion
 
 MOTHERS_DAY = 'Mother\'s Day'
 FATHERS_DAY = 'Father\'s Day'
+BIRTHDAY = 'Birthday'
 PARENT = 'Parent'
 MALE = 'Male'
 FEMALE = 'Female'
 CURRENT_YEAR = date.today().year
+NO_BIRTH_YEAR = 1900
 SUNDAY = 6
 MAY = 5
 JUNE = 6
@@ -24,6 +26,16 @@ class AutomateOccasions():
     def __init__(self, recipient, year=None) -> None:
         self.recipient = recipient
         self.year = year or CURRENT_YEAR
+        self.birth_year = self.recipient.birth_year or NO_BIRTH_YEAR
+
+    def process_birthday(self, month: int, day: int, year: int) -> date:
+        if not month:
+            raise ValueError('A month is required to process a birthday')
+        if not day:
+            raise ValueError('A day is required to process a birthday')
+
+        birthday_date = date(year, month, day)
+        self.auto_add_occasion(BIRTHDAY, birthday_date)
 
     def _get_nth_weekday(self, year: int, n: int, weekday: int, month: int) -> date:
         daysInMonth = calendar.monthrange(year, month)[1]
@@ -87,3 +99,10 @@ class AutomateOccasions():
 
         elif self.is_father:
             self.auto_add_occasion(FATHERS_DAY)
+
+        if self.has_birthday:
+            self.process_birthday(
+                self.recipient.birth_month,
+                self.recipient.birth_day,
+                self.birth_year
+            )
