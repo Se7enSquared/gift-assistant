@@ -65,13 +65,15 @@ class AutomateOccasions():
 
         return self._get_nth_weekday(CURRENT_YEAR, n, weekday, month)
 
-    def auto_add_occasion(self, holiday: str):
+    def auto_add_occasion(self, holiday: str, occ_date=None, repeat=True):
+        if not occ_date:
+            occ_date = self.get_upcoming_holiday_date(holiday)
         Occasion.objects.create(
             occasion_type=holiday,
-            repeat_yearly=True,
-            occasion_date=self.get_upcoming_holiday_date(holiday),
+            repeat_yearly=repeat,
+            occasion_date=occ_date,
             description=f'{holiday} for {self.recipient.first_name} '
-                        '{recipient.last_name}(auto-added)',
+                        f'{self.recipient.last_name}(auto-added)',
             recipient=self.recipient,
             user=self.recipient.user
         )
