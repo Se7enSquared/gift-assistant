@@ -65,14 +65,18 @@ class AutomateOccasions():
         )
 
     @property
-    def is_mother(self):
+    def is_mother(self) -> bool:
         return (self.recipient.relationship == PARENT
                 and self.recipient.gender == FEMALE)
 
     @property
-    def is_father(self):
+    def is_father(self) -> bool:
         return (self.recipient.relationship == PARENT
                 and self.recipient.gender == MALE)
+
+    @property
+    def has_birthday(self) -> bool:
+        return (self.recipient.birth_month and self.recipient.birth_day)
 
     def process_occasions(self):
         '''Add occasions automatically for certain recipients
