@@ -14,14 +14,13 @@ class Profile(models.Model):
 class Recipient(models.Model):
 
     RELATIONSHIP = (
-        ("Select", "Select"),
+        ("Friend", "Friend"),
         ("Spouse", "Spouse"),
         ("Parent", "Parent"),
         ("Aunt", "Aunt"),
         ("Uncle", "Uncle"),
         ("Child", "Child"),
         ("Sibling", "Sibling"),
-        ("Friend", "Friend"),
         ("Grandparent", "Grandparent"),
         ("Cousin", "Cousin"),
         ("Coworker", "Coworker"),
@@ -29,14 +28,12 @@ class Recipient(models.Model):
     )
 
     GENDER = (
-        ("Select", "Select"),
         ("Female", "Female"),
         ("Male", "Male"),
         ("Non-Binary", "Non-Binary"),
     )
 
     MONTHS = (
-        (0, "Select"),
         (1, "January"),
         (2, "February"),
         (3, "March"),
