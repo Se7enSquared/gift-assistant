@@ -1,7 +1,7 @@
 from datetime import date
 import calendar
 
-from .models import Occasion
+from .models import Occasion, CURRENT_YEAR
 
 MOTHERS_DAY = 'Mother\'s Day'
 FATHERS_DAY = 'Father\'s Day'
