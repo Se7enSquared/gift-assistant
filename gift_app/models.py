@@ -55,10 +55,10 @@ class Recipient(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    birth_month = models.IntegerField(choices=MONTHS, default=0)
-    birth_day = models.IntegerField(null=True, blank=True)
+    birth_month = models.PositiveIntegerField(choices=MONTHS, default=0)
+    birth_day = models.PositiveIntegerField(null=True, blank=True)
     birth_year_unknown = models.BooleanField(default=False)
-    birth_year = models.IntegerField(null=True, blank=True)
+    birth_year = models.PositiveIntegerField(null=True, blank=True)
     age = models.IntegerField()
     relationship = models.CharField(
         max_length=16, choices=RELATIONSHIP, default=RELATIONSHIP[0][0])
