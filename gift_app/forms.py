@@ -10,6 +10,14 @@ class RecipientForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['age'].help_text = '(approximate age if unknown)'
 
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data["birth_day"] is not None:
+            bday = int(cleaned_data["birth_day"])
+            # TODO: use datetime because Feb has 28 (or 29) days
+            if bday < 1 or bday > 31:
+                raise forms.ValidationError("birth day is wrong")
+
     class Meta:
         model = Recipient
         fields = [
