@@ -13,6 +13,23 @@ htmx.on("htmx:afterSwap", (e) => {
       birthYearWrapper.style.display = this.checked ? 'none' : 'flex';
     };
 
+    // calculate birth year based on age
+    document.getElementById('id_age').onchange = event => {
+        let birthMonth = document.getElementById('id_birth_month').value;
+        let birthDay = document.getElementById('id_birth_day').value;
+        let age = document.getElementById('id_age').value;
+
+        let birthYearEndpoint = `/calculate_birth_year/${age}/${birthMonth}/${birthDay}`;
+        fetch(birthYearEndpoint).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            console.log(data);
+            document.getElementById('id_birth_year').value = data.birth_year;
+        }).catch(function (err) {
+            console.warn('Something went wrong.', err);
+        });
+    }
+
     // calculate age based on day / month / year filled in
     document.getElementById('id_birth_year').onchange = event => {
       let birthMonth = document.getElementById('id_birth_month').value;
