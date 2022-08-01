@@ -9,7 +9,6 @@ BIRTHDAY = 'Birthday'
 PARENT = 'Parent'
 MALE = 'Male'
 FEMALE = 'Female'
-CURRENT_YEAR = date.today().year
 NO_BIRTH_YEAR = 1900
 SUNDAY = 6
 MAY = 5
