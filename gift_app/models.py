@@ -84,7 +84,6 @@ class Recipient(models.Model):
             return CURRENT_YEAR - age
         return CURRENT_YEAR - (age + 1)
 
-
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
