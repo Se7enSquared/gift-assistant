@@ -217,11 +217,17 @@ def gift_delete(request: HttpRequest, pk: int) -> HttpResponse:
 
 @login_required
 def calculate_age(request, year, month, day):
-    age = Recipient.calculate_age(year, month, day)
-    return JsonResponse({"age": age})
+    try:
+        age = Recipient.calculate_age(year, month, day)
+        return JsonResponse({"age": age})
+    except ValueError:
+        return HttpResponse(status=400)
 
 
 @login_required
 def calculate_birth_year(request, age, month, day):
-    birth_year = Recipient.calculate_birth_year(age, month, day)
-    return JsonResponse({"birth_year": birth_year})
+    try:
+        birth_year = Recipient.calculate_birth_year(age, month, day)
+        return JsonResponse({"birth_year": birth_year})
+    except ValueError:
+        return HttpResponse(status=400)

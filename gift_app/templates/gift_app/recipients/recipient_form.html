@@ -8,9 +8,10 @@
       <h5 class="modal-title">Add Recipient</h5>
     </div>
     <div class="modal-body">
+    <p class="alert alert-danger" id='errors' style="display:none">
+    </p>
         {% csrf_token %}
         {% bootstrap_form form layout='horizontal' %}
-        <p>{{ form.errors.recipient }}</p>
     </div>
     {% buttons %}
     <div class="modal-footer">
