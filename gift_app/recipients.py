@@ -20,9 +20,11 @@ class ValidateRecipient():
 
     def validate_birthday(self):
         birth_year = self.recipient.birth_year
-
+        if self.recipient.birth_day is None:
+            return
         if self.recipient.birth_day < 1 or self.recipient.birth_day > 31:
-            raise forms.ValidationError(('Invalid birth day'), code='invalid_birth_day')
+            raise forms.ValidationError(
+                ('Invalid birth day'), code='invalid_birth_day')
         if birth_year and (birth_year < MIN_YEAR or birth_year > date.today().year):
             raise forms.ValidationError('Year must be an integer'
                                         f'between {MIN_YEAR}'
@@ -41,7 +43,3 @@ class ValidateRecipient():
                 first_name=self.recipient.first_name,
                 last_name=self.recipient.last_name).exists():
             raise forms.ValidationError('Recipient already exists')
-
-    def set_rel(self):
-        return (OTHER if self.recipient.relationship == SELECT else
-                self.recipient.relationship)

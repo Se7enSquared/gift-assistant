@@ -1,6 +1,8 @@
-from datetime import datetime
+from datetime import date, datetime
 from django.contrib.auth.models import User
 from django.db import models
+
+CURRENT_YEAR = date.today().year
 
 
 class Profile(models.Model):
@@ -14,14 +16,13 @@ class Profile(models.Model):
 class Recipient(models.Model):
 
     RELATIONSHIP = (
-        ("Select", "Select"),
+        ("Friend", "Friend"),
         ("Spouse", "Spouse"),
         ("Parent", "Parent"),
         ("Aunt", "Aunt"),
         ("Uncle", "Uncle"),
         ("Child", "Child"),
         ("Sibling", "Sibling"),
-        ("Friend", "Friend"),
         ("Grandparent", "Grandparent"),
         ("Cousin", "Cousin"),
         ("Coworker", "Coworker"),
@@ -29,14 +30,12 @@ class Recipient(models.Model):
     )
 
     GENDER = (
-        ("Select", "Select"),
         ("Female", "Female"),
         ("Male", "Male"),
         ("Non-Binary", "Non-Binary"),
     )
 
     MONTHS = (
-        (0, "Select"),
         (1, "January"),
         (2, "February"),
         (3, "March"),
@@ -77,6 +76,13 @@ class Recipient(models.Model):
         now = datetime.now()
         had_birthday_this_year = (now.month, now.day) < (birthday.month, birthday.day)
         return now.year - birthday.year - had_birthday_this_year
+
+    @staticmethod
+    def calculate_birth_year(age, month, day):
+        birthday_passed = date(CURRENT_YEAR, month, day) < date.today()
+        if birthday_passed:
+            return CURRENT_YEAR - age
+        return CURRENT_YEAR - (age + 1)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
