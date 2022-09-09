@@ -1,13 +1,14 @@
-
 {% for recipient in recipients %}
 <tr id="recipient-{{ recipient.pk }}" class="table-row">
-    <td >{{recipient.first_name}} {{recipient.last_name}}</td>
-    <td >{{recipient.relationship}}</td>
+    <td>{{recipient.first_name}} {{recipient.last_name}}</td>
+    <td>{{recipient.relationship}}</td>
     <td id="occasioncount">{{recipient.occasion__count}}</td>
-    <td >
-        <a hx-get="{% url 'recipient_edit' pk=recipient.pk %}" hx-target="#dialog"><span class="iconify text-primary editbutton"
-                data-icon="ep:edit-pen" data-width="24" data-height="24"></span></a>
+    <td>
+        <a hx-get="{% url 'recipient_edit' pk=recipient.pk %}" hx-target="#dialog"><span
+                class="iconify text-primary editbutton" data-icon="ep:edit-pen" data-width="24"
+                data-height="24"></span></a>
         <a hx-get="{% url 'recipient_delete' pk=recipient.pk %}" hx-target="#dialog"><span class="iconify text-primary"
                 data-icon="fluent:delete-16-regular" data-width="24" data-height="24"></span></a>
     </td>
-    {% endfor %}
+</tr>
+{% endfor %}
